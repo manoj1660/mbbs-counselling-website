@@ -3,59 +3,100 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { Users, Globe, GraduationCap, Trophy } from 'lucide-react';
 
-function StatCounter({ end, label, duration = 2 }) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
+function StatCounter({ end, label, icon: Icon, duration = 2 }) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (inView) {
-      let start = 0;
-      const increment = end / (duration * 60);
-      const interval = setInterval(() => {
-        start += increment;
-        if (start >= end) {
-          setCount(end);
-          clearInterval(interval);
-        } else {
-          setCount(Math.floor(start));
-        }
-      }, 1000 / 60);
-      return () => clearInterval(interval);
-    }
+    if (!inView) return;
+
+    let start = 0;
+    const totalFrames = duration * 60;
+    const increment = end / totalFrames;
+
+    const counter = setInterval(() => {
+      start += increment;
+
+      if (start >= end) {
+        setCount(end);
+        clearInterval(counter);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 1000 / 60);
+
+    return () => clearInterval(counter);
   }, [inView, end, duration]);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="text-center"
+      transition={{ duration: 0.5 }}
+      className="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm hover:shadow-lg transition duration-300"
     >
-      <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-        {count}+
+      <div className="flex justify-center mb-4">
+        <div className="p-3 rounded-xl bg-blue-50 text-blue-600">
+          <Icon size={28} />
+        </div>
       </div>
-      <div className="text-gray-600 text-lg">{label}</div>
+
+      <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+        {count}+
+      </h3>
+
+      <p className="mt-2 text-gray-600 text-sm md:text-base">{label}</p>
     </motion.div>
   );
 }
 
 export default function StatsSection() {
   return (
-    <section className="py-16 md:py-24 bg-white border-y border-gray-200">
+    <section className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Title */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-8"
+          className="text-center mb-14"
         >
-          <StatCounter end={5000} label="Students Counselled" />
-          <StatCounter end={10} label="Countries Covered" />
-          <StatCounter end={500} label="Partner Universities" />
-          <StatCounter end={95} label="Success Rate %" />
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            Our Impact in Numbers
+          </h2>
+          <p className="text-gray-600 mt-3">
+            Helping students achieve their global education dreams.
+          </p>
         </motion.div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <StatCounter
+            end={5000}
+            label="Students Counselled"
+            icon={Users}
+          />
+          <StatCounter
+            end={10}
+            label="Countries Covered"
+            icon={Globe}
+          />
+          <StatCounter
+            end={500}
+            label="Partner Universities"
+            icon={GraduationCap}
+          />
+          <StatCounter
+            end={95}
+            label="Success Rate"
+            icon={Trophy}
+          />
+        </div>
+
       </div>
     </section>
   );
