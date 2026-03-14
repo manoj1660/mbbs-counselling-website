@@ -1,25 +1,30 @@
-import {universities} from "../../data/universities"
-import UniversityCard from "../../components/UniversityCard"
+"use client";
+import React from "react";
+import UniversityHeroText from "@/components/university/UniversityHeroText";
+import TopCountries from "@/components/university/TopCountries";
+import AllCountries from "@/components/university/AllCountries";
 
-export default function UniversitiesPage(){
+export default function UniversitiesPage() {
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero usually stays full width for background effects */}
+      <UniversityHeroText />
 
-return(
+      {/* This container centers your content and adds breathing room on the sides */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-12 space-y-20">
+        
+        <section>
+          <TopCountries />
+        </section>
 
-<div className="max-w-6xl mx-auto py-20">
+        {/* Decorative Divider */}
+        <div className="border-t border-slate-100" />
 
-<h1 className="text-4xl font-bold mb-10 text-center">
-Top Medical Universities
-</h1>
+        <section>
+          <AllCountries />
+        </section>
 
-<div className="grid md:grid-cols-3 gap-8">
-
-{universities.map(uni=>(
-<UniversityCard key={uni.slug} uni={uni}/>
-))}
-
-</div>
-
-</div>
-
-)
+      </div>
+    </main>
+  );
 }

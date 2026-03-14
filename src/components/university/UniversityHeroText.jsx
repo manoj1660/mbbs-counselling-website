@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { LinkPreview } from "@/components/ui/link-preview"; // adjust path
-import CountryListSection from "@/components/university/AllCountries";
-export default function CountryTextHero() {
+export default function UniversityHeroText() {
   return (
     <section className="relative pt-32 pb-20 px-6 bg-gradient-to-b from-white to-blue-50/50">
       <div className="max-w-5xl mx-auto text-center">
@@ -37,8 +36,6 @@ export default function CountryTextHero() {
           . We provide direct access to verified clinical training.
         </h1>
       </div>
-
-      <CountryListSection />
     </section>
     
   );

@@ -1,5 +1,13 @@
 @import "tailwindcss";
+/* Hide horizontal scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}
 :root {
 
   /* Theme Colors */

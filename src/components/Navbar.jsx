@@ -37,12 +37,16 @@ return()=>window.removeEventListener("scroll",handleScroll)
 
 return(
 
+// <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
+// scrolled || isMobileMenuOpen
+// ? "bg-white text-gray-800 shadow-md border-gray-100"
+// : "bg-transparent text-white border-transparent"
+// }`}>
 <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
 scrolled || isMobileMenuOpen
 ? "bg-white text-gray-800 shadow-md border-gray-100"
-: "bg-transparent text-white border-transparent"
+: "bg-white text-gray-800 border-transparent"
 }`}>
-
 <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-4">
 
 {/* Logo */}

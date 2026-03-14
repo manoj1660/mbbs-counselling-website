@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { LinkPreview } from "@/components/ui/link-preview"; // adjust path
-import CountryListSection from "@/components/university/AllCountries";
+// import CountryListSection from "@/components/university/AllCountries";
 export default function CountryTextHero() {
   return (
     <section className="relative pt-32 pb-20 px-6 bg-gradient-to-b from-white to-blue-50/50">
@@ -38,7 +38,7 @@ export default function CountryTextHero() {
         </h1>
       </div>
 
-      <CountryListSection />
+    
     </section>
     
   );
