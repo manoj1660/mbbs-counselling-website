@@ -107,7 +107,15 @@ export default function PartnerSection() {
             <div className="flex gap-4 mb-4">
 
               <div className="w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-400 rounded-xl flex items-center justify-center text-xs font-bold text-white">
-                LOGO
+                {uni.image ? (
+                  <img
+                    src={uni.image}
+                    alt={uni.name}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                ) : (
+                  <span className="text-lg">LOGO</span>
+                )}
               </div>
 
               <div>

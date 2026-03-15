@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { COUNTRIES_DATA } from "@/data/countries";
 
@@ -27,9 +28,9 @@ export default function AllCountries() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {currentItems.map((country) => (
-
-            <div
+            <Link
               key={country.id}
+              href={`/universities/${country.slug}`}
               className="flex items-center gap-4 p-4 bg-blue-50/50 rounded-2xl border border-blue-100 hover:border-blue-300 transition group cursor-pointer"
             >
               <div className="w-20 h-20 rounded-xl overflow-hidden">
@@ -41,7 +42,6 @@ export default function AllCountries() {
               </div>
 
               <div className="flex-grow">
-
                 <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition">
                   {country.name}
                 </h4>
@@ -53,10 +53,8 @@ export default function AllCountries() {
                 <div className="flex items-center gap-1 text-[10px] font-bold text-blue-700 uppercase">
                   Learn More <ArrowRight size={12} />
                 </div>
-
               </div>
-            </div>
-
+            </Link>
           ))}
 
         </div>

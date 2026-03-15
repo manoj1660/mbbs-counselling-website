@@ -1,6 +1,7 @@
 export const UNIVERSITY_DETAILS = {
   "saratov-state-medical-university": {
     name: "Saratov State Medical University",
+    image: "/images/countries/saratov-state-medical-img.jpg",
     slug: "saratov-state-medical-university",
     location: "Saratov, Russia",
     established: "1909",
@@ -33,5 +34,55 @@ export const UNIVERSITY_DETAILS = {
       "NEET Qualification is mandatory for Indian students.",
       "Minimum age of 17 years by 31st December of the admission year.",
     ],
+    admissionSteps: [
+      "Submit Scanned Copies of 10th & 12th Marksheets + NEET Result.",
+      "Receive Admission Letter within 2-3 working days.",
+      "Apply for the Official Invitation Letter from the Ministry of Russia.",
+      "Visa processing at the Russian Embassy in India.",
+      "Flight departure from India to Saratov (Group departure with our representative).",
+    ],
+
+    // 2. HOSTEL & ACCOMMODATION (Crucial for parents' peace of mind)
+    accommodation: {
+      type: "University Dormitories (On-campus)",
+      roomSharing: "2-3 students per room",
+      facilities: [
+        "Centrally heated rooms for Russian winters",
+        "Separate wings for Boys and Girls",
+        "24/7 Security & CCTV Surveillance",
+        "High-speed Wi-Fi & Laundry rooms",
+        "Common Kitchen for self-cooking",
+      ],
+      indianFood:
+        "Indian Mess available serving North & South Indian meals daily.",
+    },
+
+    // 3. CLINICAL EXPOSURE (Shows the quality of education)
+    clinicalRotation: {
+      hospitals: [
+        "S.R. Mirotvortsev Clinical Hospital (Biggest in the region)",
+        "University Clinic of Dentistry",
+        "Research Institute of Uro-Nephrology",
+      ],
+      practicalTraining:
+        "Students start clinical rotations from the 3rd year, interacting with real patients in government-funded hospitals.",
+    },
+
+    // 4. DOCUMENTS REQUIRED (A checklist for the user)
+    documents: [
+      "Original 10th & 12th Marksheet",
+      "Valid Passport (with 2 years validity)",
+      "NEET Qualification Scorecard",
+      "10-12 Passport size photos (White background)",
+      "Medical Fitness Certificate & HIV Report",
+    ],
+
+    // 5. ABOUT THE CITY (Helps students visualize their life)
+    cityLife: {
+      name: "Saratov City",
+      description:
+        "Located on the banks of the Volga River, Saratov is a major cultural and educational hub. It is known as the 'City of Students' and is much more affordable than Moscow or St. Petersburg.",
+      travel: "Direct train and flight connectivity from Moscow.",
+    },
   },
 };

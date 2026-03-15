@@ -6,15 +6,16 @@ export function HeroVideoDialogDemoTopInBottomOut() {
       <HeroVideoDialog
         className="block dark:hidden"
         animationStyle="top-in-bottom-out"
-        videoSrc="https://www.youtube.com/watch?v=F9ctMxHJ-0M"
+        videoSrc="https://www.youtube.com/embed/TyW9HVcG2sI?autoplay=1&playsinline=1&rel=0"
         thumbnailSrc="/images/hero-video.png"
-        thumbnailAlt="Hero Video"       
+        thumbnailAlt="Hero Video"
       />
+
       <HeroVideoDialog
         className="hidden dark:block"
         animationStyle="top-in-bottom-out"
-        videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-        thumbnailSrc="https://startup-template-sage.vercel.app/hero-dark.png"
+        videoSrc="https://www.youtube.com/embed/TyW9HVcG2sI?autoplay=1&playsinline=1&rel=0"
+        thumbnailSrc="/images/hero-video.png"
         thumbnailAlt="Hero Video"
       />
     </div>

@@ -4,22 +4,13 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ChevronDown, Menu, X, Phone } from "lucide-react"
 
-const countries = [
-{ name: "Russia", slug: "russia" },
-{ name: "Georgia", slug: "georgia" },
-{ name: "Kazakhstan", slug: "kazakhstan" },
-{ name: "Kyrgyzstan", slug: "kyrgyzstan" },
-{ name: "Uzbekistan", slug: "uzbekistan" },
-{ name: "Nepal", slug: "nepal" }
-]
-
 const universities = [
-{ name: "Kazan Federal University", slug: "kazan-federal-university" },
-{ name: "Crimea Federal University", slug: "crimea-federal-university" },
-{ name: "Tbilisi State Medical University", slug: "tbilisi-state-medical-university" },
-{ name: "Al Farabi Kazakh National University", slug: "al-farabi-kazakh-national-university" },
-{ name: "Osh State University", slug: "osh-state-university" },
-{ name: "Bashkir State Medical University", slug: "bashkir-state-medical-university" }
+{ name: "Saratov State Medical University", country:"russia", slug: "saratov-state-medical-university" },
+{ name: "South Kazakhstan Medical Academy", country:"kazakhstan", slug: "south-kazakhstan-medical-academy" },
+{ name: "Central Asian International Medical University", country:"kazakhstan", slug: "central-asian-international-medical-university" },
+{ name: "Medical University of Warsaw", country:"poland", slug: "medical-university-of-warsaw" },
+{ name: "University of Bologna Medical School", country:"italy", slug: "university-of-bologna-medical-school" },
+{ name: "Nanjing Medical University", country:"china", slug: "nanjing-medical-university" }
 ]
 
 export default function ResponsiveNavbar(){
@@ -35,13 +26,13 @@ window.addEventListener("scroll",handleScroll)
 return()=>window.removeEventListener("scroll",handleScroll)
 },[])
 
+const closeMenu = () => {
+setIsMobileMenuOpen(false)
+setMobileSubMenu(null)
+}
+
 return(
 
-// <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
-// scrolled || isMobileMenuOpen
-// ? "bg-white text-gray-800 shadow-md border-gray-100"
-// : "bg-transparent text-white border-transparent"
-// }`}>
 <nav className={`fixed w-full z-50 transition-all duration-300 border-b ${
 scrolled || isMobileMenuOpen
 ? "bg-white text-gray-800 shadow-md border-gray-100"
@@ -50,9 +41,9 @@ scrolled || isMobileMenuOpen
 <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-4">
 
 {/* Logo */}
-<Link href="/">
+<Link href="/" onClick={closeMenu}>
 <div className="text-xl md:text-2xl font-black italic tracking-tighter cursor-pointer">
-MBBS<span className="text-yellow-500">GLOBAL</span>
+MISSION<span className="text-yellow-500">GLOBAL</span>
 </div>
 </Link>
 
@@ -63,13 +54,6 @@ MBBS<span className="text-yellow-500">GLOBAL</span>
 <Link href="/" className="hover:text-blue-600 transition">
 Home
 </Link>
-</li>
-
-<li
-onMouseEnter={()=>setActiveMenu("countries")}
-className="flex items-center gap-1 hover:text-blue-600 cursor-pointer transition py-2"
->
-Countries <ChevronDown size={14}/>
 </li>
 
 <li
@@ -122,27 +106,16 @@ activeMenu ? "max-h-[500px] opacity-100 border-b" : "max-h-0 opacity-0 pointer-e
 <div className="max-w-7xl mx-auto grid grid-cols-12 p-10 gap-8">
 
 <div className="col-span-3 border-r pr-6 italic font-bold text-blue-900/40">
-Explore Options
+Explore Universities
 </div>
 
 <div className="col-span-6 grid grid-cols-2 gap-4">
-
-{activeMenu==="countries" &&
-countries.map(item=>(
-<Link
-key={item.slug}
-href={`/countries/${item.slug}`}
-className="text-sm text-gray-600 hover:text-blue-600 transition font-medium"
->
-• MBBS in {item.name}
-</Link>
-))}
 
 {activeMenu==="universities" &&
 universities.map(item=>(
 <Link
 key={item.slug}
-href={`/universities/${item.slug}`}
+href={`/universities/${item.country.toLowerCase()}/${item.slug}`}
 className="text-sm text-gray-600 hover:text-blue-600 transition font-medium"
 >
 • {item.name}
@@ -160,15 +133,6 @@ Guide 2026
 <p className="text-xs text-blue-700 leading-relaxed">
 Download the full MBBS admission guide for Indian students studying abroad.
 </p>
-
-{activeMenu==="countries" && (
-<Link
-href="/countries"
-className="text-blue-600 font-semibold text-sm mt-4 block"
->
-Explore All Countries →
-</Link>
-)}
 
 {activeMenu==="universities" && (
 <Link
@@ -192,42 +156,9 @@ isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
 
 <div className="p-6 h-full overflow-y-auto pb-20 space-y-6">
 
-<Link href="/" className="block text-lg font-bold">
+<Link href="/" onClick={closeMenu} className="block text-lg font-bold">
 Home
 </Link>
-
-{/* Countries */}
-<div>
-
-<button
-onClick={()=>setMobileSubMenu(mobileSubMenu==="countries"?null:"countries")}
-className="w-full flex justify-between items-center font-bold text-lg"
->
-Countries
-<ChevronDown className={`transition ${mobileSubMenu==="countries"?"rotate-180":""}`}/>
-</button>
-
-{mobileSubMenu==="countries" && (
-<div className="mt-3 grid grid-cols-2 gap-3">
-
-{countries.map(c=>(
-<Link
-key={c.slug}
-href={`/countries/${c.slug}`}
-className="text-sm text-gray-600"
->
-MBBS in {c.name}
-</Link>
-))}
-
-<Link href="/countries" className="text-blue-600 text-sm font-semibold col-span-2">
-Explore All Countries →
-</Link>
-
-</div>
-)}
-
-</div>
 
 {/* Universities */}
 
@@ -247,14 +178,19 @@ Universities
 {universities.map(u=>(
 <Link
 key={u.slug}
-href={`/universities/${u.slug}`}
+href={`/universities/${u.country.toLowerCase()}/${u.slug}`}
+onClick={closeMenu}
 className="text-sm text-gray-600"
 >
 • {u.name}
 </Link>
 ))}
 
-<Link href="/universities" className="text-blue-600 text-sm font-semibold">
+<Link 
+href={`/universities`} 
+onClick={closeMenu}
+className="text-blue-600 text-sm font-semibold"
+>
 Explore All Universities →
 </Link>
 
@@ -262,6 +198,10 @@ Explore All Universities →
 )}
 
 </div>
+
+<Link href="/admission" onClick={closeMenu} className="block text-lg font-bold">
+Admission
+</Link>
 
 <button className="w-full mt-10 bg-yellow-400 py-4 rounded-xl font-bold shadow-xl">
 Apply for Free Counselling
