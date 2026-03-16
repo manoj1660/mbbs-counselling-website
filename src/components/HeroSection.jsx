@@ -1,72 +1,129 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import LayoutTextFlipDemo from "./layout-text-flip-demo";
 import { HeroVideoDialogDemoTopInBottomOut } from "./HeroVideoDialogDemoTopInBottomOut";
+import { Sparkles, ArrowRight, MousePointerClick } from "lucide-react";
 
 export default function HeroSection() {
   const { scrollY } = useScroll();
 
   // Parallax layers
-  const yHeading = useTransform(scrollY, [0, 600], [0, -140]);
-  const yText = useTransform(scrollY, [0, 600], [0, -80]);
-  const yButtons = useTransform(scrollY, [0, 600], [0, -50]);
-  const yVideo = useTransform(scrollY, [0, 600], [0, -20]);
+  const yHeading = useTransform(scrollY, [0, 600], [0, -100]);
+  const yText = useTransform(scrollY, [0, 600], [0, -60]);
+  const yButtons = useTransform(scrollY, [0, 600], [0, -30]);
+  const yVideo = useTransform(scrollY, [0, 800], [0, -50]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white">
-      <div className="max-w-5xl mx-auto mt-27 px-6 text-center">
-        {/* Heading */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white py-20">
+      
+      {/* --- SUBTLE DECORATION --- */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Soft blue glow in the top corner */}
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-200/30 rounded-full blur-[120px]"></div>
+        {/* Subtle grid pattern - very light */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10 pt-10 text-center">
+        
+        {/* --- 1. PREMIUM BADGE --- */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="px-4 py-1.5 rounded-full border border-blue-200 bg-white shadow-sm flex items-center gap-2">
+            <Sparkles size={14} className="text-blue-600" />
+            <span className="text-[10px] font-black tracking-[0.2em] text-blue-600 uppercase">
+              NMC Approved Universities 2026
+            </span>
+          </div>
+        </motion.div>
+
+        {/* --- 2. UPGRADED HEADING --- */}
         <motion.div
           style={{ y: yHeading }}
-          className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight"
+          className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight"
         >
           <LayoutTextFlipDemo />
         </motion.div>
 
-        {/* Description */}
+        {/* --- 3. DESCRIPTION --- */}
         <motion.p
           style={{ y: yText }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto"
+          className="mt-8 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed"
         >
-          Get admission in top NMC approved medical universities across Russia,
-          Kazakhstan, Uzbekistan, Kyrgyzstan and other countries.
+          Empowering medical aspirants with 
+          <span className="text-blue-600 font-bold"> direct admissions </span> 
+          and transparent guidance for MBBS in Russia, Kazakhstan, & beyond.
         </motion.p>
 
-        {/* Buttons */}
+        {/* --- 4. UPGRADED BUTTONS --- */}
         <motion.div
           style={{ y: yButtons }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-10 flex flex-col sm:flex-row justify-center gap-5"
+          className="mt-12 flex flex-col sm:flex-row justify-center gap-4 items-center"
         >
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition hover:scale-105">
+          <Link href="/apply" className="group relative bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 hover:-translate-y-1 flex items-center gap-2">
             Apply Now
-          </button>
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
 
-          <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition hover:scale-105">
+          <Link href="/apply" className="px-10 py-4 rounded-2xl font-bold text-slate-700 border border-slate-200 bg-white hover:bg-slate-50 transition-all flex items-center gap-2">
+            <MousePointerClick size={18} className="text-blue-600" />
             Free Counselling
-          </button>
+          </Link>
         </motion.div>
 
-        {/* Trust Text */}
-        <motion.p
+        {/* --- 5. SOCIAL PROOF (Avatars) --- */}
+        <motion.div
           style={{ y: yButtons }}
-          className="mt-8 text-sm text-gray-500"
+          className="mt-12 flex flex-col items-center gap-3"
         >
-          Trusted by 5000+ students for MBBS admissions abroad
-        </motion.p>
+          <div className="flex -space-x-3">
+             {[1,2,3,4].map(i => (
+               <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-slate-100 overflow-hidden shadow-sm">
+                 <img src={`https://i.pravatar.cc/100?img=${i+15}`} alt="student" />
+               </div>
+             ))}
+             <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-600 flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
+               5k+
+             </div>
+          </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+            Trusted by 5,000+ medical students
+          </p>
+        </motion.div>
 
-        {/* VIDEO SECTION BELOW */}
+        {/* --- 6. VIDEO DIALOG WITH GLOW --- */}
         <motion.div
           style={{ y: yVideo }}
-          className="mt-16 flex justify-center rounded-2xl shadow-xl border bg-white/60 backdrop-blur p-4"
+          className="mt-16 relative"
         >
-          <HeroVideoDialogDemoTopInBottomOut />
+          {/* Subtle outer glow for the video */}
+          <div className="absolute -inset-4 bg-blue-100/50 rounded-[3rem] blur-2xl z-0"></div>
+          
+          <div className="relative z-10 flex justify-center rounded-[2.5rem] overflow-hidden border border-slate-100 bg-white/80 backdrop-blur-md p-3 md:p-6 shadow-2xl shadow-slate-200">
+             <HeroVideoDialogDemoTopInBottomOut />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* --- SCROLL INDICATOR --- */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-30">
+        <motion.div 
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="w-5 h-8 border-2 border-slate-400 rounded-full flex justify-center p-1"
+        >
+          <div className="w-1 h-1 bg-slate-400 rounded-full"></div>
         </motion.div>
       </div>
     </section>

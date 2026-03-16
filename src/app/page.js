@@ -2,7 +2,8 @@ import StatsSection from "@/components/StatsSection";
 import HeroSection from "../components/HeroSection";
 import WhyStudyAbroad from "@/components/WhyStudyAbroad";
 import WhoWeAreSection from "@/components/WhoWeAreSection";
-import PartnerSection from "@/components/PartnerSection";
+// import PartnerSection from "@/components/PartnerSection";
+import PartnerSection from "@/components/PartnerSection2";
 
 // 1. Import your new component and the data
 import HomePageTopUniversity from "@/components/HomePageTopUniversity";
@@ -18,6 +19,7 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <HomePageTopUniversity unis={featuredUnis} countrySlug="name" />
+      {/* <PartnerSection /> */}
       <PartnerSection />
       <WhoWeAreSection />
       <WhyStudyAbroad />

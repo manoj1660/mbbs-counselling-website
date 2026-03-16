@@ -85,4 +85,623 @@ export const UNIVERSITY_DETAILS = {
       travel: "Direct train and flight connectivity from Moscow.",
     },
   },
+
+  // crimean-federal-university
+
+  "crimea-federal-university": {
+    name: "Crimea Federal University",
+    image: "/images/universities/russia/CRIMEA_FEDERAL_UNIVERSITY_SIMFEROPOL.jpg",
+    slug: "crimea-federal-university",
+    location: "Simferopol, Russia",
+    established: "1918",
+    ranking: { world: "3500+", country: "20" },
+    intro:
+      "Crimea Federal University (CFU) is a reputable government institution located in Simferopol. Recognized by the WHO and NMC for Indian students, it offers a budget‑friendly and globally recognized MBBS program. The university is known for its English‑medium curriculum, comprehensive clinical exposure, and lower overall cost of study compared to many Russian medical universities, making it an attractive choice for international students including Indians. :contentReference[oaicite:1]{index=1}",
+
+    highlights: [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with practical clinical exposure",
+      "6‑Year Medical Degree recognized globally",
+    ],
+
+    tuitionFees: [
+      {
+        year: "1st Year",
+        tuitionfees: "₽363,000",
+        tuitionINR: "₹4,21,000",
+      },
+      {
+        year: "2nd Year",
+        tuitionfees: "₽330,000",
+        tuitionINR: "₹3,83,000",
+      },
+      {
+        year: "3rd Year",
+        tuitionfees: "₽330,000",
+        tuitionINR: "₹3,83,000",
+      },
+      {
+        year: "4th Year",
+        tuitionfees: "₽330,000",
+        tuitionINR: "₹3,83,000",
+      },
+      {
+        year: "5th Year",
+        tuitionfees: "₽330,000",
+        tuitionINR: "₹3,83,000",
+      },
+      {
+        year: "6th Year",
+        tuitionfees: "₽330,000",
+        tuitionINR: "₹3,83,000",
+      },
+    ],
+
+    totalPackage: "Approx. ₹23 Lakhs to ₹26 Lakhs (6 Years)",
+
+    eligibility: [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity.",
+    ],
+
+    admissionSteps: [
+      "Submit 10th & 12th mark sheets, NEET result and passport copy.",
+      "Receive provisional admission letter from CFU.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Simferopol and complete enrollment formalities.",
+    ],
+
+    accommodation: {
+      type: "University Hostels & Shared Apartments",
+      roomSharing: "2–4 students per room",
+      facilities: [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi‑Fi access and laundry services",
+        "Common kitchen area",
+      ],
+      indianFood:
+        "Indian food available in mess/canteen on request (extra charges).",
+    },
+
+    clinicalRotation: {
+      hospitals: [
+        "University Clinical Hospital Simferopol",
+        "City General Hospital",
+        "Research & Specialty Medical Centers",
+      ],
+      practicalTraining:
+        "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals.",
+    },
+
+    documents: [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report",
+    ],
+
+    cityLife: {
+      name: "Simferopol",
+      description:
+        "Simferopol is the administrative center of Crimea, combining cultural history with modern educational infrastructure. It offers affordable living, good public transport, and international student communities. :contentReference[oaicite:2]{index=2}",
+      travel: "Connected by road and rail; nearest major airports via Moscow.",
+    },
+  },
+
+  "yaroslavl-state-medical-university": {
+    "name": "Yaroslavl State Medical University",
+    "image": "/images/universities/russia/YAROSLAVL_STATE_MEDICAL_UNIVERSITY_image.jpg",
+    "slug": "yaroslavl-state-medical-university",
+    "location": "Yaroslavl, Russia",
+    "established": "1944",
+    "ranking": {
+      "world": "3000+",
+      "country": "15"
+    },
+    "intro": "Yaroslavl State Medical University (YSMU) is one of Russia's premier medical universities, established in 1944 and located in the historic city of Yaroslavl. Known for offering high-quality medical education with globally recognized degrees, it attracts international students from various countries. YSMU's MBBS program is taught in English, ensuring that students from across the world, including India, can receive world-class medical training. The university offers a comprehensive clinical experience through its affiliated hospitals and medical centers, providing students with the opportunity to gain hands-on knowledge from their 3rd year onward. Its affordable fees and great infrastructure make it a popular choice for aspiring doctors.",
+    "highlights": [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with high-quality medical education",
+      "6-Year Medical Degree recognized globally",
+      "Excellent clinical exposure starting from 3rd year"
+    ],
+    "tuitionFees": [
+      {
+        "year": "1st Year",
+        "tuitionfees": "₽385,000",
+        "tuitionINR": "₹4,50,000"
+      },
+      {
+        "year": "2nd Year",
+        "tuitionfees": "₽350,000",
+        "tuitionINR": "₹4,10,000"
+      },
+      {
+        "year": "3rd Year",
+        "tuitionfees": "₽350,000",
+        "tuitionINR": "₹4,10,000"
+      },
+      {
+        "year": "4th Year",
+        "tuitionfees": "₽350,000",
+        "tuitionINR": "₹4,10,000"
+      },
+      {
+        "year": "5th Year",
+        "tuitionfees": "₽350,000",
+        "tuitionINR": "₹4,10,000"
+      },
+      {
+        "year": "6th Year",
+        "tuitionfees": "₽350,000",
+        "tuitionINR": "₹4,10,000"
+      }
+    ],
+    "totalPackage": "Approx. ₹24 Lakhs to ₹26 Lakhs (6 Years)",
+    "eligibility": [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity."
+    ],
+    "admissionSteps": [
+      "Submit 10th & 12th mark sheets, NEET result, and passport copy.",
+      "Receive provisional admission letter from YSMU.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Yaroslavl and complete enrollment formalities."
+    ],
+    "accommodation": {
+      "type": "University Hostels & Shared Apartments",
+      "roomSharing": "2–4 students per room",
+      "facilities": [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi-Fi access and laundry services",
+        "Common kitchen area"
+      ],
+      "indianFood": "Indian food available in mess/canteen on request (extra charges)."
+    },
+    "clinicalRotation": {
+      "hospitals": [
+        "University Clinical Hospital Yaroslavl",
+        "City General Hospital",
+        "Research & Specialty Medical Centers"
+      ],
+      "practicalTraining": "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals."
+    },
+    "documents": [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report"
+    ],
+    "cityLife": {
+      "name": "Yaroslavl",
+      "description": "Yaroslavl is an ancient Russian city, rich in cultural heritage and modern infrastructure. It serves as a vibrant educational hub, with a blend of historical landmarks and contemporary amenities. The city is known for its affordable cost of living, excellent public transportation system, and a variety of international student communities. Yaroslavl offers a peaceful environment for students to focus on their academic pursuits while enjoying the beautiful landscapes and cultural sites.",
+      "travel": "Yaroslavl is well-connected by road and rail, with the nearest major airports being in Moscow. The city is easily accessible from Moscow by a 4-hour train journey."
+    }
+  },
+
+  // far-eastern-federal-university ===========================================
+
+  "far-eastern-federal-university": {
+    "name": "Far Eastern Federal University",
+    "image": "/images/universities/russia/FAR_EASTERN_FEDERAL_UNIVERSITY_image.jpg",
+    "slug": "far-eastern-federal-university",
+    "location": "Vladivostok, Russia",
+    "established": "1899",
+    "ranking": {
+      "world": "2500+",
+      "country": "13"
+    },
+    "intro": "Far Eastern Federal University (FEFU), located in the scenic city of Vladivostok, is one of Russia's leading educational institutions. Founded in 1899, the university offers a high-quality MBBS program in English for international students, including Indians. The university is recognized by the WHO and NMC, ensuring that the degrees are globally acknowledged. The English-medium curriculum, along with strong clinical training opportunities starting from the 3rd year, makes FEFU a sought-after destination for medical aspirants. The relatively affordable tuition fees and advanced infrastructure are significant factors for students considering studying abroad.",
+    "highlights": [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with excellent medical education",
+      "6-Year Medical Degree recognized globally",
+      "Strong clinical exposure from the 3rd year"
+    ],
+    "tuitionFees": [
+      {
+        "year": "1st Year",
+        "tuitionfees": "₽530,000",
+        "tuitionINR": "₹6,20,000"
+      },
+      {
+        "year": "2nd Year",
+        "tuitionfees": "₽495,000",
+        "tuitionINR": "₹5,80,000"
+      },
+      {
+        "year": "3rd Year",
+        "tuitionfees": "₽495,000",
+        "tuitionINR": "₹5,80,000"
+      },
+      {
+        "year": "4th Year",
+        "tuitionfees": "₽495,000",
+        "tuitionINR": "₹5,80,000"
+      },
+      {
+        "year": "5th Year",
+        "tuitionfees": "₽495,000",
+        "tuitionINR": "₹5,80,000"
+      },
+      {
+        "year": "6th Year",
+        "tuitionfees": "₽495,000",
+        "tuitionINR": "₹5,80,000"
+      }
+    ],
+    "totalPackage": "Approx. ₹34 Lakhs to ₹36 Lakhs (6 Years)",
+    "eligibility": [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity."
+    ],
+    "admissionSteps": [
+      "Submit 10th & 12th mark sheets, NEET result, and passport copy.",
+      "Receive provisional admission letter from FEFU.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Vladivostok and complete enrollment formalities."
+    ],
+    "accommodation": {
+      "type": "University Hostels & Shared Apartments",
+      "roomSharing": "2–4 students per room",
+      "facilities": [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi-Fi access and laundry services",
+        "Common kitchen area"
+      ],
+      "indianFood": "Indian food available in mess/canteen on request (extra charges)."
+    },
+    "clinicalRotation": {
+      "hospitals": [
+        "University Clinical Hospital Vladivostok",
+        "City General Hospital",
+        "Research & Specialty Medical Centers"
+      ],
+      "practicalTraining": "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals."
+    },
+    "documents": [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report"
+    ],
+    "cityLife": {
+      "name": "Vladivostok",
+      "description": "Vladivostok is a port city in Russia’s Far East, known for its stunning views of the Sea of Japan. It is one of the largest cities in the Russian Far East and boasts a blend of Russian, Asian, and international cultures. The city has a thriving student community, with good public transport, affordable living, and a peaceful environment conducive to studying. Vladivostok offers a range of outdoor activities and a vibrant cultural life for students to enjoy during their academic journey.",
+      "travel": "Vladivostok is connected by rail, sea, and air, with the nearest major airports being the Vladivostok International Airport. The city is easily accessible from major Russian cities, with frequent flights and train services."
+    }
+  },
+
+    // kemerovo-state-medical-university ===========================================
+    "kemerovo-state-medical-university": {
+    "name": "Kemerovo State Medical University",
+    "image": "/images/universities/russia/KEMEROVO_STATE_MEDICAL_UNIVERSITY_image.jpg",
+    "slug": "kemerovo-state-medical-university",
+    "location": "Kemerovo, Russia",
+    "established": "1956",
+    "ranking": {
+      "world": "4000+",
+      "country": "25"
+    },
+    "intro": "Kemerovo State Medical University (KSMU) is one of Russia's prominent medical universities, located in the industrial city of Kemerovo. Founded in 1956, the university is recognized by the World Health Organization (WHO) and the National Medical Commission (NMC) of India. KSMU offers an MBBS program in English, making it an ideal choice for international students. Known for its affordable fees, modern infrastructure, and clinical exposure, KSMU has become a popular destination for students from India and other countries seeking an affordable yet high-quality medical education.",
+    "highlights": [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with a well-established medical program",
+      "6-Year Medical Degree recognized globally",
+      "Practical clinical exposure from the 3rd year"
+    ],
+    "tuitionFees": [
+      {
+        "year": "1st Year",
+        "tuitionfees": "₽328,000",
+        "tuitionINR": "₹3,80,000"
+      },
+      {
+        "year": "2nd Year",
+        "tuitionfees": "₽295,000",
+        "tuitionINR": "₹3,45,000"
+      },
+      {
+        "year": "3rd Year",
+        "tuitionfees": "₽295,000",
+        "tuitionINR": "₹3,45,000"
+      },
+      {
+        "year": "4th Year",
+        "tuitionfees": "₽295,000",
+        "tuitionINR": "₹3,45,000"
+      },
+      {
+        "year": "5th Year",
+        "tuitionfees": "₽295,000",
+        "tuitionINR": "₹3,45,000"
+      },
+      {
+        "year": "6th Year",
+        "tuitionfees": "₽295,000",
+        "tuitionINR": "₹3,45,000"
+      }
+    ],
+    "totalPackage": "Approx. ₹20 Lakhs to ₹22 Lakhs (6 Years)",
+    "eligibility": [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity."
+    ],
+    "admissionSteps": [
+      "Submit 10th & 12th mark sheets, NEET result, and passport copy.",
+      "Receive provisional admission letter from KSMU.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Kemerovo and complete enrollment formalities."
+    ],
+    "accommodation": {
+      "type": "University Hostels & Shared Apartments",
+      "roomSharing": "2–4 students per room",
+      "facilities": [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi-Fi access and laundry services",
+        "Common kitchen area"
+      ],
+      "indianFood": "Indian food available in mess/canteen on request (extra charges)."
+    },
+    "clinicalRotation": {
+      "hospitals": [
+        "University Clinical Hospital Kemerovo",
+        "City General Hospital",
+        "Research & Specialty Medical Centers"
+      ],
+      "practicalTraining": "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals."
+    },
+    "documents": [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report"
+    ],
+    "cityLife": {
+      "name": "Kemerovo",
+      "description": "Kemerovo is an industrial city located in southwestern Siberia. It is the administrative center of the Kemerovo region and is known for its strong industrial base and rich educational infrastructure. The city offers affordable living, good public transport, and a friendly atmosphere for international students. Kemerovo also boasts numerous parks and cultural attractions, making it a comfortable place for students to live and study.",
+      "travel": "Kemerovo is well-connected by road and rail, with the nearest major airports being in Novosibirsk and Moscow. The city is accessible by flights and train services from major Russian cities."
+    }
+  },
+
+
+  // ivanovo-state-medical-university ===========================================
+  "ivanovo-state-medical-university": {
+    "name": "Ivanovo State Medical University",
+    "image": "/images/universities/russia/IVANOVO_STATE_MEDICAL_UNIVERSITY.jpg",
+    "slug": "ivanovo-state-medical-university",
+    "location": "Ivanovo, Russia",
+    "established": "1930",
+    "ranking": {
+      "world": "4500+",
+      "country": "30"
+    },
+    "intro": "Ivanovo State Medical University (ISMU), founded in 1930, is a prestigious medical university in Russia offering a globally recognized MBBS program. The university is well-known for its English-medium instruction, making it an excellent choice for international students. ISMU is recognized by the WHO and NMC, ensuring the degrees are globally acknowledged. The university's affordable tuition fees, modern infrastructure, and quality clinical training programs attract students from around the world, particularly India. Ivanovo offers great opportunities for practical exposure starting from the 3rd year, making it an ideal destination for aspiring doctors.",
+    "highlights": [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with excellent medical education",
+      "6-Year Medical Degree recognized globally",
+      "Clinical exposure starting from 3rd year"
+    ],
+    "tuitionFees": [
+      {
+        "year": "1st Year",
+        "tuitionfees": "₽288,300",
+        "tuitionINR": "₹3,40,000"
+      },
+      {
+        "year": "2nd Year",
+        "tuitionfees": "₽285,000",
+        "tuitionINR": "₹3,35,000"
+      },
+      {
+        "year": "3rd Year",
+        "tuitionfees": "₽285,000",
+        "tuitionINR": "₹3,35,000"
+      },
+      {
+        "year": "4th Year",
+        "tuitionfees": "₽285,000",
+        "tuitionINR": "₹3,35,000"
+      },
+      {
+        "year": "5th Year",
+        "tuitionfees": "₽285,000",
+        "tuitionINR": "₹3,35,000"
+      },
+      {
+        "year": "6th Year",
+        "tuitionfees": "₽285,000",
+        "tuitionINR": "₹3,35,000"
+      }
+    ],
+    "totalPackage": "Approx. ₹20 Lakhs to ₹22 Lakhs (6 Years)",
+    "eligibility": [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity."
+    ],
+    "admissionSteps": [
+      "Submit 10th & 12th mark sheets, NEET result, and passport copy.",
+      "Receive provisional admission letter from ISMU.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Ivanovo and complete enrollment formalities."
+    ],
+    "accommodation": {
+      "type": "University Hostels & Shared Apartments",
+      "roomSharing": "2–4 students per room",
+      "facilities": [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi-Fi access and laundry services",
+        "Common kitchen area"
+      ],
+      "indianFood": "Indian food available in mess/canteen on request (extra charges)."
+    },
+    "clinicalRotation": {
+      "hospitals": [
+        "University Clinical Hospital Ivanovo",
+        "City General Hospital",
+        "Research & Specialty Medical Centers"
+      ],
+      "practicalTraining": "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals."
+    },
+    "documents": [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report"
+    ],
+    "cityLife": {
+      "name": "Ivanovo",
+      "description": "Ivanovo is a historic city in Russia, known for its rich textile industry and academic infrastructure. It offers affordable living and a student-friendly environment, making it an attractive location for international students. The city provides a good balance between urban amenities and a peaceful atmosphere, allowing students to focus on their studies while enjoying recreational activities and cultural attractions.",
+      "travel": "Ivanovo is well connected by road and rail, with the nearest major airports being in Moscow. The city is accessible by a 4-hour train journey from Moscow."
+    }
+  },
+
+   
+  // north-ossetian-state-medical-academy ===========================================
+
+  "north-ossetian-state-medical-academy": {
+    "name": "North Ossetian State Medical Academy",
+    "image": "/images/universities/russia/NORTH_OSSETIAN_STATE_MEDICAL_ACADEMY.jpg",
+    "slug": "north-ossetian-state-medical-academy",
+    "location": "Vladikavkaz, Russia",
+    "established": "1939",
+    "ranking": {
+      "world": "4500+",
+      "country": "40"
+    },
+    "intro": "North Ossetian State Medical Academy (NOSMA) in Vladikavkaz is a prestigious medical university in Russia, established in 1939. Known for its affordable medical programs and high-quality education, it is recognized by the WHO and the National Medical Commission (NMC) of India. The university offers a 6-year MBBS program in English, making it a great choice for international students, particularly those from India. The academy provides excellent clinical training starting from the 3rd year, and the fees remain competitive when compared to other medical universities in Russia.",
+    "highlights": [
+      "Affordable MBBS program in Russia",
+      "Recognized by WHO & NMC for Indian students",
+      "English medium instruction",
+      "Government university with strong clinical exposure",
+      "6-Year Medical Degree recognized globally",
+      "Practical training from the 3rd year"
+    ],
+    "tuitionFees": [
+      {
+        "year": "1st Year",
+        "tuitionfees": "₽343,000",
+        "tuitionINR": "₹4,00,000"
+      },
+      {
+        "year": "2nd Year",
+        "tuitionfees": "₽310,000",
+        "tuitionINR": "₹3,60,000"
+      },
+      {
+        "year": "3rd Year",
+        "tuitionfees": "₽310,000",
+        "tuitionINR": "₹3,60,000"
+      },
+      {
+        "year": "4th Year",
+        "tuitionfees": "₽310,000",
+        "tuitionINR": "₹3,60,000"
+      },
+      {
+        "year": "5th Year",
+        "tuitionfees": "₽310,000",
+        "tuitionINR": "₹3,60,000"
+      },
+      {
+        "year": "6th Year",
+        "tuitionfees": "₽310,000",
+        "tuitionINR": "₹3,60,000"
+      }
+    ],
+    "totalPackage": "Approx. ₹22 Lakhs to ₹24 Lakhs (6 Years)",
+    "eligibility": [
+      "Minimum 50% in PCB (Physics, Chemistry, Biology) for General Category.",
+      "NEET Qualification required for Indian students.",
+      "Minimum age of 17 years by 31st December of admission year.",
+      "Valid passport with at least 2 years validity."
+    ],
+    "admissionSteps": [
+      "Submit 10th & 12th mark sheets, NEET result, and passport copy.",
+      "Receive provisional admission letter from NOSMA.",
+      "Apply for Invitation Letter from Russian Ministry of Education.",
+      "Apply for Student Visa at Russian Embassy.",
+      "Travel to Vladikavkaz and complete enrollment formalities."
+    ],
+    "accommodation": {
+      "type": "University Hostels & Shared Apartments",
+      "roomSharing": "2–4 students per room",
+      "facilities": [
+        "Centrally heated rooms for winter",
+        "Separate wings for boys & girls",
+        "24/7 security and CCTV",
+        "Wi-Fi access and laundry services",
+        "Common kitchen area"
+      ],
+      "indianFood": "Indian food available in mess/canteen on request (extra charges)."
+    },
+    "clinicalRotation": {
+      "hospitals": [
+        "University Clinical Hospital Vladikavkaz",
+        "City General Hospital",
+        "Research & Specialty Medical Centers"
+      ],
+      "practicalTraining": "Students begin clinical exposure in the 3rd year interacting with patients at partner hospitals."
+    },
+    "documents": [
+      "Original 10th & 12th mark sheets",
+      "Valid passport",
+      "NEET scorecard",
+      "Passport‑size photos (white background)",
+      "Medical fitness certificate",
+      "HIV test report"
+    ],
+    "cityLife": {
+      "name": "Vladikavkaz",
+      "description": "Vladikavkaz is a scenic city nestled in the foothills of the Caucasus Mountains. It offers a peaceful yet dynamic atmosphere with good public transport and affordable living costs. The city is known for its diverse culture and historical significance, offering international students a well-rounded living experience while pursuing their studies.",
+      "travel": "Vladikavkaz is well connected by road, rail, and air, with the nearest major airports being in Moscow. The city is easily accessible by train or flight from major Russian cities."
+    }
+  }
 };

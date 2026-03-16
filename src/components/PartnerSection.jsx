@@ -180,7 +180,7 @@ export default function PartnerSection() {
 
                 {/* APPLY BUTTON */}
                 <Link
-                  href={`/apply/${uni.country.toLowerCase()}/${uni.slug}`}
+                  href={`/apply`}
                   className="px-6 py-2 text-xs font-bold rounded-full text-black bg-yellow-400 hover:bg-yellow-500 transition-all shadow-lg hover:scale-105"
                 >
                   Apply

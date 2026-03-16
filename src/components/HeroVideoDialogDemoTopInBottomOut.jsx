@@ -1,4 +1,4 @@
-import { HeroVideoDialog } from "./ui/hero-video-dialog"
+import { HeroVideoDialog } from "./ui/hero-video-dialog";
 
 export function HeroVideoDialogDemoTopInBottomOut() {
   return (
@@ -6,7 +6,7 @@ export function HeroVideoDialogDemoTopInBottomOut() {
       <HeroVideoDialog
         className="block dark:hidden"
         animationStyle="top-in-bottom-out"
-        videoSrc="https://www.youtube.com/embed/-fREY9S7ze0"
+        videoSrc="https://www.youtube.com/embed/labu0T4-ESk?autoplay=1"
         thumbnailSrc="/images/hero-video.png"
         thumbnailAlt="Hero Video"
       />
@@ -14,10 +14,10 @@ export function HeroVideoDialogDemoTopInBottomOut() {
       <HeroVideoDialog
         className="hidden dark:block"
         animationStyle="top-in-bottom-out"
-        videoSrc="https://www.youtube.com/embed/-fREY9S7ze0"
+        videoSrc="https://www.youtube.com/embed/labu0T4-ESk?autoplay=1"
         thumbnailSrc="/images/hero-video.png"
         thumbnailAlt="Hero Video"
       />
     </div>
-  )
+  );
 }

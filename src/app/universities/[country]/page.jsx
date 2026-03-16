@@ -85,7 +85,7 @@ export default function CountryDetailPage({ params }) {
               Total Budget
             </p>
             <p className="text-2xl font-bold text-slate-900">
-              {details.feeRange.split(" ")[0]}
+              {details.feeRange}
             </p>
           </div>
           <div className="text-center md:text-left border-l border-slate-100 pl-8">

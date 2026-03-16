@@ -31,7 +31,7 @@ export default function Footer() {
               <li><Link href="/universities/georgia" className="hover:text-blue-400 transition">MBBS in Georgia</Link></li>
               <li><Link href="/universities/kazakhstan" className="hover:text-blue-400 transition">MBBS in Kazakhstan</Link></li>
               <li><Link href="/universities/uzbekistan" className="hover:text-blue-400 transition">MBBS in Uzbekistan</Link></li>
-              <li><Link href="/universities/egypt" className="hover:text-blue-400 transition">MBBS in Egypt</Link></li>
+              <li><Link href="/universities/philippines" className="hover:text-blue-400 transition">MBBS in Philippines</Link></li>
             </ul>
           </div>
 
@@ -39,11 +39,11 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">Useful Links</h4>
             <ul className="space-y-4 text-sm">
-              <li><Link href="/admission-process" className="hover:text-blue-400 transition">Admission Process</Link></li>
-              <li><Link href="/eligibility" className="hover:text-blue-400 transition">Eligibility Criteria</Link></li>
-              <li><Link href="/visa-guidance" className="hover:text-blue-400 transition">Student Visa Support</Link></li>
-              <li><Link href="/contact" className="hover:text-blue-400 transition">Contact Us</Link></li>
-              <li><Link href="/faq" className="hover:text-blue-400 transition">Common FAQs</Link></li>
+              <li><Link href="#" className="hover:text-blue-400 transition">Admission Process</Link></li>
+              <li><Link href="#" className="hover:text-blue-400 transition">Eligibility Criteria</Link></li>
+              <li><Link href="#" className="hover:text-blue-400 transition">Student Visa Support</Link></li>
+              <li><Link href="/apply" className="hover:text-blue-400 transition">Contact Us</Link></li>
+              <li><Link href="#" className="hover:text-blue-400 transition">Common FAQs</Link></li>
             </ul>
           </div>
 
@@ -57,11 +57,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-blue-500">📞</span>
-                <p>+91 98765 43210</p>
+                <p>+91 9818187817</p>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-blue-500">✉️</span>
-                <p>info@missionglobal.com</p>
+                <p>info@unefly.com</p>
               </div>
               <div className="mt-6 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50">
                 <p className="text-xs text-slate-400 font-medium mb-2 uppercase">Office Hours</p>

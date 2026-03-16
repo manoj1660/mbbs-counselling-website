@@ -11,7 +11,7 @@
     "@radix-ui/react-hover-card": "^1.1.15",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.35.2",
+    "framer-motion": "^12.37.0",
     "lucide-react": "^0.577.0",
     "motion": "^12.35.2",
     "next": "16.1.6",
