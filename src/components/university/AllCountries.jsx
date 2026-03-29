@@ -1,19 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import { COUNTRIES_DATA } from "@/data/countries";
 
 export default function AllCountries() {
-
+  const [countries, setCountries] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 6;
 
-  const totalPages = Math.ceil(COUNTRIES_DATA.length / itemsPerPage);
+  // 🔥 FETCH FROM API
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const res = await fetch("/api/countries");
+        const data = await res.json();
+        setCountries(data);
+      } catch (err) {
+        console.error("Error fetching countries", err);
+      }
+    };
 
-  const currentItems = COUNTRIES_DATA.slice(
+    fetchCountries();
+  }, []);
+
+  const totalPages = Math.ceil(countries.length / itemsPerPage);
+
+  const currentItems = countries.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -29,7 +43,7 @@ export default function AllCountries() {
 
           {currentItems.map((country) => (
             <Link
-              key={country.id}
+              key={country._id} // ✅ MongoDB id
               href={`/universities/${country.slug}`}
               className="flex items-center gap-4 p-4 bg-blue-50/50 rounded-2xl border border-blue-100 hover:border-blue-300 transition group cursor-pointer"
             >
@@ -73,7 +87,7 @@ export default function AllCountries() {
         </button>
 
         <span className="font-semibold">
-          Page {currentPage} of {totalPages}
+          Page {currentPage} of {totalPages || 1}
         </span>
 
         <button

@@ -58,6 +58,11 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <span className="text-blue-500">📞</span>
                 <p>+91 9818187817</p>
+                
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-blue-500">📞</span>
+                <p>+7 9253490320</p>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-blue-500">✉️</span>

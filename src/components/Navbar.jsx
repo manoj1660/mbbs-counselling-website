@@ -41,17 +41,38 @@ export default function ResponsiveNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [mobileSubMenu, setMobileSubMenu] = useState(null);
+  const [user, setUser] = useState(null);
 
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fetch logged in user
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+        setUser(data.user);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   const closeMenu = () => {
     setIsMobileMenuOpen(false);
-    setMobileSubMenu(null);
+  };
+
+  // Logout
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    window.location.reload();
   };
 
   return (
@@ -63,6 +84,7 @@ export default function ResponsiveNavbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-4">
+        
         {/* Logo */}
         <Link href="/" onClick={closeMenu}>
           <div className="text-xl md:text-2xl font-black italic tracking-tighter cursor-pointer">
@@ -96,6 +118,15 @@ export default function ResponsiveNavbar() {
               About
             </Link>
           </li>
+
+          {/* ADMIN LINK (desktop menu) */}
+          {user?.role === "admin" && (
+            <li>
+              <Link href="/admin" className="text-blue-600 font-bold">
+                Admin
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Buttons */}
@@ -103,6 +134,43 @@ export default function ResponsiveNavbar() {
           <p className="hidden sm:flex items-center gap-2 text-sm font-bold bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-100">
             <Phone size={14} /> +91 9818187817
           </p>
+
+          {/* AUTH UI */}
+          {!user ? (
+            <>
+              <Link
+                href="/login"
+                className="hidden lg:block px-4 py-2 font-semibold text-sm"
+              >
+                Login
+              </Link>
+
+              <Link
+                href="/register"
+                className="hidden lg:block bg-black text-white px-4 py-2 rounded-full text-sm"
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              {user.role === "admin" && (
+                <Link
+                  href="/admin"
+                  className="hidden lg:block bg-blue-600 text-white px-4 py-2 rounded-full text-sm"
+                >
+                  Admin Panel
+                </Link>
+              )}
+
+              <button
+                onClick={handleLogout}
+                className="hidden lg:block bg-red-500 text-white px-4 py-2 rounded-full text-sm"
+              >
+                Logout
+              </button>
+            </>
+          )}
 
           <Link
             href="/apply"
@@ -139,7 +207,7 @@ export default function ResponsiveNavbar() {
               universities.map((item) => (
                 <Link
                   key={item.slug}
-                  href={`/universities/${item.country.toLowerCase()}/${item.slug}`}
+                  href={`/universities/${item.country}/${item.slug}`}
                   className="text-sm text-gray-600 hover:text-blue-600 transition font-medium"
                 >
                   • {item.name}
@@ -157,35 +225,27 @@ export default function ResponsiveNavbar() {
               studying abroad.
             </p>
 
-            {activeMenu === "universities" && (
-              <Link
-                href="/universities"
-                className="text-blue-600 font-semibold text-sm mt-4 block"
-              >
-                Explore All Universities →
-              </Link>
-            )}
+            <Link
+              href="/universities"
+              className="text-blue-600 font-semibold text-sm mt-4 block"
+            >
+              Explore All Universities →
+            </Link>
           </div>
         </div>
       </div>
 
       {/* MOBILE MENU */}
-
       <div
         className={`md:hidden fixed inset-0 top-[68px] bg-white transition-transform duration-300 ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="p-6 h-full overflow-y-auto pb-20 space-y-6">
-          <Link
-            href="/"
-            onClick={closeMenu}
-            className="block text-lg font-bold"
-          >
+          <Link href="/" onClick={closeMenu} className="block text-lg font-bold">
             Home
           </Link>
 
-          {/* Universities */}
           <Link
             href="/universities"
             onClick={closeMenu}
@@ -209,6 +269,33 @@ export default function ResponsiveNavbar() {
           >
             About
           </Link>
+
+          {/* MOBILE AUTH */}
+          {!user ? (
+            <>
+              <Link href="/login" onClick={closeMenu} className="block text-lg font-bold">
+                Login
+              </Link>
+              <Link href="/register" onClick={closeMenu} className="block text-lg font-bold">
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              {user.role === "admin" && (
+                <Link href="/admin" onClick={closeMenu} className="block text-lg font-bold">
+                  Admin Panel
+                </Link>
+              )}
+
+              <button
+                onClick={handleLogout}
+                className="block text-lg font-bold text-red-500"
+              >
+                Logout
+              </button>
+            </>
+          )}
 
           <button className="w-full mt-10 bg-yellow-400 py-4 rounded-xl font-bold shadow-xl">
             Apply for Free Counselling

@@ -4,6 +4,7 @@ import WhyStudyAbroad from "@/components/WhyStudyAbroad";
 import WhoWeAreSection from "@/components/WhoWeAreSection";
 // import PartnerSection from "@/components/PartnerSection";
 import PartnerSection from "@/components/PartnerSection2";
+import Navbar from "@/components/Navbar";
 
 // 1. Import your new component and the data
 import HomePageTopUniversity from "@/components/HomePageTopUniversity";
@@ -16,6 +17,7 @@ export default function Home() {
 
   return (
     <main>
+      <Navbar />
       <HeroSection />
       <StatsSection />
       <HomePageTopUniversity unis={featuredUnis} countrySlug="name" />

@@ -1,28 +1,35 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react"; // 1. Hook add kiya
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
 import LayoutTextFlipDemo from "./layout-text-flip-demo";
 import { HeroVideoDialogDemoTopInBottomOut } from "./HeroVideoDialogDemoTopInBottomOut";
 import { Sparkles, ArrowRight, MousePointerClick } from "lucide-react";
 
 export default function HeroSection() {
+  const [mounted, setMounted] = useState(false); // 2. Mount state
   const { scrollY } = useScroll();
 
-  // Parallax layers
-  const yHeading = useTransform(scrollY, [0, 600], [0, -100]);
-  const yText = useTransform(scrollY, [0, 600], [0, -60]);
-  const yButtons = useTransform(scrollY, [0, 600], [0, -30]);
-  const yVideo = useTransform(scrollY, [0, 800], [0, -50]);
+  // 3. Smooth spring animations (optional but better for parallax)
+  const smoothY = useSpring(scrollY, { stiffness: 100, damping: 30 });
+
+  const yHeading = useTransform(smoothY, [0, 600], [0, -100]);
+  const yText = useTransform(smoothY, [0, 600], [0, -60]);
+  const yButtons = useTransform(smoothY, [0, 600], [0, -30]);
+  const yVideo = useTransform(smoothY, [0, 800], [0, -50]);
+
+  // 4. Hydration Fix
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white py-20">
       
       {/* --- SUBTLE DECORATION --- */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Soft blue glow in the top corner */}
+      <div className="absolute inset-0 z-0 overflow-hidden" suppressHydrationWarning>
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-blue-200/30 rounded-full blur-[120px]"></div>
-        {/* Subtle grid pattern - very light */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
       </div>
 
@@ -42,9 +49,9 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* --- 2. UPGRADED HEADING --- */}
+        {/* --- 2. HEADING (Added Mount Check for Parallax Style) --- */}
         <motion.div
-          style={{ y: yHeading }}
+          style={{ y: mounted ? yHeading : 0 }} // 5. Only apply parallax after mount
           className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight"
         >
           <LayoutTextFlipDemo />
@@ -52,7 +59,7 @@ export default function HeroSection() {
 
         {/* --- 3. DESCRIPTION --- */}
         <motion.p
-          style={{ y: yText }}
+          style={{ y: mounted ? yText : 0 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -63,9 +70,9 @@ export default function HeroSection() {
           and transparent guidance for MBBS in Russia, Kazakhstan, & beyond.
         </motion.p>
 
-        {/* --- 4. UPGRADED BUTTONS --- */}
+        {/* --- 4. BUTTONS --- */}
         <motion.div
-          style={{ y: yButtons }}
+          style={{ y: mounted ? yButtons : 0 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -82,15 +89,16 @@ export default function HeroSection() {
           </Link>
         </motion.div>
 
-        {/* --- 5. SOCIAL PROOF (Avatars) --- */}
+        {/* --- 5. SOCIAL PROOF --- */}
         <motion.div
-          style={{ y: yButtons }}
+          style={{ y: mounted ? yButtons : 0 }}
           className="mt-12 flex flex-col items-center gap-3"
+          suppressHydrationWarning // 6. Suppress image and social proof mismatches
         >
           <div className="flex -space-x-3">
              {[1,2,3,4].map(i => (
                <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-slate-100 overflow-hidden shadow-sm">
-                 <img src={`https://i.pravatar.cc/100?img=${i+15}`} alt="student" />
+                 <img src={`https://i.pravatar.cc/100?u=${i}`} alt="student" /> 
                </div>
              ))}
              <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-600 flex items-center justify-center text-[10px] font-bold text-white shadow-sm">
@@ -102,14 +110,12 @@ export default function HeroSection() {
           </p>
         </motion.div>
 
-        {/* --- 6. VIDEO DIALOG WITH GLOW --- */}
+        {/* --- 6. VIDEO DIALOG --- */}
         <motion.div
-          style={{ y: yVideo }}
+          style={{ y: mounted ? yVideo : 0 }}
           className="mt-16 relative"
         >
-          {/* Subtle outer glow for the video */}
           <div className="absolute -inset-4 bg-blue-100/50 rounded-[3rem] blur-2xl z-0"></div>
-          
           <div className="relative z-10 flex justify-center rounded-[2.5rem] overflow-hidden border border-slate-100 bg-white/80 backdrop-blur-md p-3 md:p-6 shadow-2xl shadow-slate-200">
              <HeroVideoDialogDemoTopInBottomOut />
           </div>

@@ -20,7 +20,7 @@ export const COUNTRY_DETAILS = {
   },
   georgia: {
     title: "MBBS in Georgia",
-    image: "/images/countries/georgia-tbilisi.jpg", // Beautiful Tbilisi skyline or Caucasus mountains
+    image: "/images/countries/georgia.jpg", // Beautiful Tbilisi skyline or Caucasus mountains
     heroText: "Experience European medical standards at an affordable price.",
     stats: { students: "5,000+", colleges: "25+", medium: "English" },
     description: "Georgia has become a hub for international students. The curriculum is strictly based on the European Credit Transfer System (ECTS), making it easy to practice across Europe later.",
@@ -39,7 +39,7 @@ export const COUNTRY_DETAILS = {
   },
   kazakhstan: {
     title: "MBBS in Kazakhstan",
-    image: "/images/countries/kazakhstan-astana.jpg", // Modern Bayterek Tower or Almaty
+    image: "/images/countries/kazakhstan.jpg", // Modern Bayterek Tower or Almaty
     heroText: "The most budget-friendly destination for future doctors.",
     stats: { students: "4,000+", colleges: "15+", medium: "English" },
     description: "Kazakhstan offers a 5-year MBBS program (instead of 6 in some places), saving students a full year of living expenses while maintaining high clinical standards.",
@@ -58,7 +58,7 @@ export const COUNTRY_DETAILS = {
   },
   china: {
     title: "MBBS in China",
-    image: "/images/countries/china-shanghai.jpg", // Shanghai Bund or Great Wall
+    image: "/images/countries/china.jpg", // Shanghai Bund or Great Wall
     heroText: "Study medicine in one of Asia’s most advanced education systems.",
     stats: { students: "23,000+", colleges: "45+", medium: "English" },
     description: "China is a leading destination for MBBS with world-class government universities, advanced hospitals, and strong clinical exposure.",
@@ -77,7 +77,7 @@ export const COUNTRY_DETAILS = {
   },
   poland: {
     title: "MBBS in Poland",
-    image: "/images/countries/poland-warsaw.jpg", // Warsaw Old Town or University Square
+    image: "/images/countries/poland.jpg", // Warsaw Old Town or University Square
     heroText: "Earn a European Union medical degree recognized worldwide.",
     stats: { students: "2,500+", colleges: "15+", medium: "English" },
     description: "Poland offers globally recognized medical degrees with high European standards following EU frameworks.",
@@ -96,7 +96,7 @@ export const COUNTRY_DETAILS = {
   },
   bangladesh: {
     title: "MBBS in Bangladesh",
-    image: "/images/countries/bangladesh-dhaka.jpg", // Curzon Hall or Jatiya Sangsad Bhaban
+    image: "/images/countries/bangladesh.jpg", // Curzon Hall or Jatiya Sangsad Bhaban
     heroText: "Study MBBS in a culture and education system similar to India.",
     stats: { students: "7,000+", colleges: "25+", medium: "English" },
     description: "Bangladesh follows a medical curriculum very similar to India, resulting in high FMGE passing rates.",
@@ -115,7 +115,7 @@ export const COUNTRY_DETAILS = {
   },
   italy: {
     title: "MBBS in Italy",
-    image: "/images/countries/italy-rome.jpg", // Colosseum or historic university courtyard
+    image: "/images/countries/italy.jpg", // Colosseum or historic university courtyard
     heroText: "Study medicine in top European universities with global recognition.",
     stats: { students: "1,500+", colleges: "13+", medium: "English" },
     description: "Italy offers some of the best public universities in Europe with scholarships for international students.",
@@ -134,7 +134,7 @@ export const COUNTRY_DETAILS = {
   },
   kyrgyzstan: {
     title: "MBBS in Kyrgyzstan",
-    image: "/images/countries/kyrgyzstan-bishkek.jpg", // Ala-Too Square or mountain backdrop
+    image: "/images/countries/kyrgyzstan.jpg", // Ala-Too Square or mountain backdrop
     heroText: "One of the most affordable MBBS destinations for Indian students.",
     stats: { students: "10,000+", colleges: "10+", medium: "English" },
     description: "Kyrgyzstan is popular for budget-friendly MBBS programs with recognized universities and good clinical exposure.",
@@ -153,7 +153,7 @@ export const COUNTRY_DETAILS = {
   },
   uzbekistan: {
     title: "MBBS in Uzbekistan",
-    image: "/images/countries/uzbekistan-tashkent.jpg", // Registan (Samarkand) or Tashkent TV Tower
+    image: "/images/countries/uzbekistan.jpg", // Registan (Samarkand) or Tashkent TV Tower
     heroText: "Emerging destination with modern universities and affordable fees.",
     stats: { students: "3,000+", colleges: "8+", medium: "English" },
     description: "Uzbekistan is gaining popularity for its quality medical education and very low living costs.",
@@ -172,7 +172,7 @@ export const COUNTRY_DETAILS = {
   },
   nepal: {
     title: "MBBS in Nepal",
-    image: "/images/countries/nepal-kathmandu.jpg", // Kathmandu Durbar Square or Himalayas
+    image: "/images/countries/nepal.jpg", // Kathmandu Durbar Square or Himalayas
     heroText: "Study MBBS close to home with Indian-recognized universities.",
     stats: { students: "2,000+", colleges: "15+", medium: "English" },
     description: "Nepal offers MBBS programs with a syllabus similar to India, making it easier for Indian students to adapt.",
@@ -191,7 +191,7 @@ export const COUNTRY_DETAILS = {
   },
   philippines: {
     title: "MBBS in Philippines",
-    image: "/images/countries/philippines-manila.jpg", // Manila skyline or UST campus
+    image: "/images/countries/philippines.jpg", // Manila skyline or UST campus
     heroText: "Study medicine in an American-based education system.",
     stats: { students: "8,000+", colleges: "30+", medium: "English" },
     description: "The Philippines follows a US-based medical curriculum and English is widely spoken.",
