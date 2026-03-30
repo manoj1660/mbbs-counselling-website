@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ChevronRight, MapPin, CheckCircle, Star, ArrowRight, GraduationCap } from "lucide-react";
+import {
+  ChevronRight,
+  MapPin,
+  CheckCircle,
+  Star,
+  ArrowRight,
+  GraduationCap,
+} from "lucide-react";
 import Link from "next/link";
 import { BudgetRoadmap } from "@/components/BudgetRoadmap";
 
@@ -30,16 +37,22 @@ export default function CountryDetailPage({ params }) {
           // 1. Fetch Country Content (Title, Hero, Eligibility)
           const detailRes = await fetch(`/api/country-details/${countrySlug}`);
           const detailData = await detailRes.json();
-          
+
           if (detailData.success) {
             setCountryDetails(detailData.data);
           }
 
           // 2. Fetch Universities for this specific country
-          const uniRes = await fetch(`/api/universities?country=${countrySlug}`);
+          // 2. Fetch Universities for this specific country
+          const uniRes = await fetch(
+            `/api/universities?country=${countrySlug}`,
+            {
+              cache: "no-store", // 👈 Ye line add karein, isse hamesha fresh data aayega
+              // Ya fir ye use karein: next: { revalidate: 0 }
+            },
+          );
           const uniData = await uniRes.json();
-          setCountryUnis(uniData); // Ab ye seedha DB se aa rha hae
-
+          setCountryUnis(uniData);
         } catch (error) {
           console.error("Error fetching page data:", error);
         } finally {
@@ -51,7 +64,7 @@ export default function CountryDetailPage({ params }) {
     }
   }, [paramsResolved, countrySlug]);
 
-  if (loading || !countryDetails) 
+  if (loading || !countryDetails)
     return (
       <div className="h-screen flex items-center justify-center bg-white text-blue-600 font-bold">
         <div className="flex flex-col items-center gap-4">
@@ -78,7 +91,9 @@ export default function CountryDetailPage({ params }) {
         <div className="absolute inset-0 bg-gradient-to-t from-[#fcfcfd] via-transparent to-black/40" />
         <div className="absolute inset-0 flex flex-col justify-end pb-24 px-6 md:px-12 max-w-7xl mx-auto">
           <nav className="flex items-center gap-2 text-white/80 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-            <Link href="/universities" className="hover:text-white">Destinations</Link>
+            <Link href="/universities" className="hover:text-white">
+              Destinations
+            </Link>
             <ChevronRight size={14} />
             <span className="text-blue-400 capitalize">{countrySlug}</span>
           </nav>
@@ -98,19 +113,33 @@ export default function CountryDetailPage({ params }) {
       <div className="relative z-20 -mt-16 px-6">
         <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl border border-white shadow-2xl rounded-[3rem] p-8 md:p-12 grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Total Budget</p>
-            <p className="text-2xl font-bold text-slate-900">{details.feeRange}</p>
+            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">
+              Total Budget
+            </p>
+            <p className="text-2xl font-bold text-slate-900">
+              {details.feeRange}
+            </p>
           </div>
           <div className="border-l border-slate-100 pl-8">
-            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Students</p>
-            <p className="text-2xl font-bold text-slate-900">{details.stats?.students}</p>
+            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">
+              Students
+            </p>
+            <p className="text-2xl font-bold text-slate-900">
+              {details.stats?.students}
+            </p>
           </div>
           <div className="border-l border-slate-100 pl-8">
-            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">Medium</p>
-            <p className="text-2xl font-bold text-slate-900">{details.stats?.medium}</p>
+            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1">
+              Medium
+            </p>
+            <p className="text-2xl font-bold text-slate-900">
+              {details.stats?.medium}
+            </p>
           </div>
           <div className="border-l border-slate-100 pl-8">
-            <button className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:shadow-lg transition-all">Apply Now</button>
+            <button className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:shadow-lg transition-all">
+              Apply Now
+            </button>
           </div>
         </div>
       </div>
@@ -123,16 +152,23 @@ export default function CountryDetailPage({ params }) {
               <span className="w-12 h-1 bg-blue-600 rounded-full" />
               Academic Standards
             </h2>
-            <p className="text-xl text-slate-500 leading-relaxed italic">"{details.description}"</p>
+            <p className="text-xl text-slate-500 leading-relaxed italic">
+              "{details.description}"
+            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
             {details.whyStudy?.map((point, i) => (
-              <div key={i} className="group p-8 bg-white border border-slate-100 rounded-[2rem] hover:border-blue-200 hover:shadow-xl transition-all duration-500">
+              <div
+                key={i}
+                className="group p-8 bg-white border border-slate-100 rounded-[2rem] hover:border-blue-200 hover:shadow-xl transition-all duration-500"
+              >
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                   <CheckCircle size={24} />
                 </div>
-                <p className="text-lg font-bold text-slate-800 leading-snug">{point}</p>
+                <p className="text-lg font-bold text-slate-800 leading-snug">
+                  {point}
+                </p>
               </div>
             ))}
           </div>
@@ -145,16 +181,28 @@ export default function CountryDetailPage({ params }) {
             </h3>
             <div className="space-y-8 relative z-10">
               <div className="flex justify-between items-center">
-                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">PCB Required</span>
-                <span className="font-bold text-lg">{details.eligibility?.pcb}</span>
+                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                  PCB Required
+                </span>
+                <span className="font-bold text-lg">
+                  {details.eligibility?.pcb}
+                </span>
               </div>
               <div className="flex justify-between items-center border-t border-white/10 pt-8">
-                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Entrance Exam</span>
-                <span className="font-bold text-lg">{details.eligibility?.neet}</span>
+                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                  Entrance Exam
+                </span>
+                <span className="font-bold text-lg">
+                  {details.eligibility?.neet}
+                </span>
               </div>
               <div className="flex justify-between items-center border-t border-white/10 pt-8">
-                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Age Limit</span>
-                <span className="font-bold text-lg">{details.eligibility?.age}</span>
+                <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                  Age Limit
+                </span>
+                <span className="font-bold text-lg">
+                  {details.eligibility?.age}
+                </span>
               </div>
             </div>
           </div>
@@ -166,7 +214,10 @@ export default function CountryDetailPage({ params }) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-20">
             <h2 className="text-5xl font-black text-slate-900 tracking-tighter">
-              Featured <br /> <span className="text-blue-600 underline decoration-slate-100 underline-offset-8">Institutions.</span>
+              Featured <br />{" "}
+              <span className="text-blue-600 underline decoration-slate-100 underline-offset-8">
+                Institutions.
+              </span>
             </h2>
             <p className="text-slate-400 font-bold uppercase text-xs tracking-[0.2em]">
               {countryUnis.length} Verified Universities found
@@ -181,21 +232,37 @@ export default function CountryDetailPage({ params }) {
                 className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-blue-300/30 transition-all duration-300"
               >
                 <div className="h-60 overflow-hidden relative">
-                  <img src={uni.image} alt={uni.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img
+                    src={uni.image}
+                    alt={uni.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                   <div className="absolute top-5 left-5">
-                    <span className="px-4 py-2 bg-white/90 backdrop-blur-md text-[10px] font-black text-blue-700 rounded-xl uppercase">{uni.ranking}</span>
+                    <span className="px-4 py-2 bg-white/90 backdrop-blur-md text-[10px] font-black text-blue-700 rounded-xl uppercase">
+                      {uni.ranking}
+                    </span>
                   </div>
                 </div>
 
                 <div className="p-8">
-                  <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase mb-3"><MapPin size={14} /> {uni.location}</div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-6 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">{uni.name}</h4>
+                  <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase mb-3">
+                    <MapPin size={14} /> {uni.location}
+                  </div>
+                  <h4 className="text-xl font-bold text-slate-900 mb-6 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
+                    {uni.name}
+                  </h4>
                   <div className="flex items-center justify-between pt-6 border-t border-slate-50">
                     <div>
-                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Annual Fee</p>
-                      <p className="text-xl font-black text-slate-800">{uni.fee}</p>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">
+                        Annual Fee
+                      </p>
+                      <p className="text-xl font-black text-slate-800">
+                        {uni.fee}
+                      </p>
                     </div>
-                    <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"><ArrowRight size={24} /></div>
+                    <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
+                      <ArrowRight size={24} />
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -205,11 +272,23 @@ export default function CountryDetailPage({ params }) {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-6 mt-20">
-              <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30"
+              >
                 <ArrowRight className="rotate-180" size={24} />
               </button>
-              <span className="text-slate-400 font-black text-sm uppercase tracking-widest">Page {currentPage} of {totalPages}</span>
-              <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30">
+              <span className="text-slate-400 font-black text-sm uppercase tracking-widest">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30"
+              >
                 <ArrowRight size={24} />
               </button>
             </div>
@@ -217,14 +296,22 @@ export default function CountryDetailPage({ params }) {
         </div>
       </section>
 
-      <section><BudgetRoadmap /></section>
+      <section>
+        <BudgetRoadmap />
+      </section>
 
       {/* --- 5. CTA --- */}
       <section className="py-20 px-6 text-center bg-[#fcfcfd]">
         <div className="max-w-4xl mx-auto">
-          <div className="inline-flex p-4 bg-blue-50 rounded-2xl text-blue-600 mb-8"><GraduationCap size={32} /></div>
-          <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-none">Your Future <br /> Starts Here.</h2>
-          <button className="px-12 py-6 bg-blue-600 text-white rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition-all">Book Free Consultation</button>
+          <div className="inline-flex p-4 bg-blue-50 rounded-2xl text-blue-600 mb-8">
+            <GraduationCap size={32} />
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-8 leading-none">
+            Your Future <br /> Starts Here.
+          </h2>
+          <button className="px-12 py-6 bg-blue-600 text-white rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition-all">
+            Book Free Consultation
+          </button>
         </div>
       </section>
     </main>
