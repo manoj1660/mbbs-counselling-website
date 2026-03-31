@@ -5,7 +5,7 @@ export const COUNTRIES_DATA = [
     slug: "russia",
     students: "15,000+",
     fee: "₹15L - ₹40L",
-    image: "https://images.unsplash.com/photo-1513326738677-b964603b136d?auto=format&fit=crop&q=80&w=400",
+    image: "images/countries/russia.jpg",
     localImage: "images/countries/russia.jpg",
     isTop: true,
   },
