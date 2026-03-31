@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   MapPin,
@@ -9,47 +9,69 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
-import { UNIVERSITIES } from "@/data/universities";
-
-const countries = [
-  { name: "Russia", flag: "🇷🇺" },
-  { name: "Kazakhstan", flag: "🇰🇿" },
-  { name: "Kyrgyzstan", flag: "🇰🇬" },
-  { name: "Uzbekistan", flag: "🇺🇿" },
-  { name: "Nepal", flag: "🇳🇵" },
-  { name: "Bangladesh", flag: "🇧🇩" },
-  { name: "China", flag: "🇨🇳" },
-  { name: "Philippines", flag: "🇵🇭" },
-  { name: "Italy", flag: "🇮🇹" },
-  { name: "Poland", flag: "🇵🇱" },
-  { name: "Georgia", flag: "🇬🇪" }
-];
 
 export default function PartnerSection() {
-  const [activeCountry, setActiveCountry] = useState("Russia");
+  const [universities, setUniversities] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [activeCountry, setActiveCountry] = useState("");
 
   const sliderRef = useRef(null);
 
+  // ✅ Fetch Data
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      try {
+        const res = await fetch("/api/universities");
+        const data = await res.json();
+
+        setUniversities(data);
+
+        // ✅ Unique Countries
+        const uniqueCountries = [
+          ...new Map(
+            data.map((item) => [
+              item.country,
+              { name: item.country, flag: item.flag || "🌍" }
+            ])
+          ).values()
+        ];
+
+        setCountries(uniqueCountries);
+
+        if (uniqueCountries.length > 0) {
+          setActiveCountry(uniqueCountries[0].name);
+        }
+      } catch (err) {
+        console.error("Error fetching universities:", err);
+      }
+    };
+
+    fetchUniversities();
+  }, []);
+
   const scrollLeft = () => {
-    sliderRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    sliderRef.current?.scrollBy({ left: -250, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    sliderRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    sliderRef.current?.scrollBy({ left: 250, behavior: "smooth" });
   };
 
-  const displayUniversities = UNIVERSITIES.filter(
-    (uni) => uni.country.toLowerCase() === activeCountry.toLowerCase()
+  const displayUniversities = universities.filter(
+    (uni) =>
+      uni.country?.toLowerCase() === activeCountry?.toLowerCase()
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#003B73] via-[#0061C1] to-[#0099ff] p-6 md:p-12 relative">
+    <div className="min-h-screen bg-gradient-to-br from-[#73b2f1] via-[#6eb9ff] to-[#3793f5] p-6 md:p-12 relative">
 
       {/* HEADER */}
-      <div className="text-center mb-12">
-        <h2 className="text-white text-3xl md:text-5xl font-bold">
+      <div className="text-center mb-14">
+        <h2 className="text-white text-4xl md:text-5xl font-bold">
           Our Trusted{" "}
-          <span className="text-yellow-400">MBBS Abroad Partners</span>
+          <span className="text-yellow-400">
+            MBBS Abroad Partners
+          </span>
         </h2>
 
         <p className="text-white/70 mt-3">
@@ -58,166 +80,167 @@ export default function PartnerSection() {
       </div>
 
       {/* COUNTRY SLIDER */}
-      <div className="max-w-7xl mx-auto mb-12 relative">
+      <div className="max-w-7xl mx-auto mb-14 relative">
 
         <button
           onClick={scrollLeft}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg hover:scale-110"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-blue-500 text-white p-2 rounded-full shadow hover:scale-110"
         >
           <ChevronLeft />
         </button>
 
         <div
           ref={sliderRef}
-          className="flex overflow-x-auto no-scrollbar gap-3 px-10"
+          className="flex overflow-x-auto no-scrollbar gap-4 px-12"
         >
-          {countries.map((country) => (
+          {countries.map((country, index) => (
             <button
-              key={country.name}
+              key={`${country.name}-${index}`}
               onClick={() => setActiveCountry(country.name)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full whitespace-nowrap transition-all duration-300 ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300 ${
                 activeCountry === country.name
-                  ? "bg-yellow-400 text-black shadow-xl scale-105"
-                  : "bg-white/10 text-white hover:bg-white/20"
+                  ? "bg-yellow-400 text-black shadow-md"
+                  : "bg-blue-600 text-white hover:bg-white/20"
               }`}
             >
-              <span className="text-lg">{country.flag}</span>
-              <span className="font-semibold text-sm">{country.name}</span>
+              <span className="text-sm font-semibold">
+                {country.name}
+              </span>
             </button>
           ))}
         </div>
 
         <button
           onClick={scrollRight}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-lg hover:scale-110"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:scale-110"
         >
           <ChevronRight />
         </button>
       </div>
 
       {/* UNIVERSITY GRID */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
 
-        {displayUniversities.slice(0, 6).map((uni, idx) => (
+        {displayUniversities.slice(0, 6).map((uni, index) => (
           <div
-            key={idx}
-            className="group bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+            key={`${uni.id || "noid"}-${uni.slug || index}`}
+            className="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border border-gray-200 transition-all duration-300 hover:-translate-y-2"
           >
-            {/* CARD HEADER */}
-            <div className="flex gap-4 mb-4">
+            {/* TOP */}
+            <div className="flex items-start gap-4 mb-5">
 
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-200 to-blue-400 rounded-xl flex items-center justify-center text-xs font-bold text-white">
+              <div className="w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center border">
                 {uni.image ? (
                   <img
                     src={uni.image}
                     alt={uni.name}
-                    className="w-full h-full object-cover rounded-xl"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-lg">LOGO</span>
+                  <span className="text-gray-400 text-xs">
+                    LOGO
+                  </span>
                 )}
               </div>
 
-              <div>
-                <h3 className="font-bold text-[#003B73] leading-tight mb-2">
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-800 text-lg mb-1">
                   {uni.name}
                 </h3>
 
-                <div className="flex flex-wrap gap-2 text-xs">
-
-                  <span className="flex items-center gap-1 text-red-500">
-                    <MapPin size={14} />
-                    {uni.location}
-                  </span>
-
-                  {uni.established && (
-                    <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full border">
-                      EST {uni.established}
-                    </span>
-                  )}
-
-                  <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full border flex items-center gap-1">
-                    <CheckCircle2 size={12} />
-                    NMC
-                  </span>
-
-                </div>
+                <p className="flex items-center gap-1 text-sm text-gray-500">
+                  <MapPin size={14} />
+                  {uni.location}
+                </p>
               </div>
             </div>
 
-            {/* STATS */}
-            <div className="flex justify-between border-t border-b py-4 my-4">
+            {/* TAGS */}
+            <div className="flex flex-wrap gap-2 mb-5">
+
+              {uni.established && (
+                <span className="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full">
+                  EST {uni.established}
+                </span>
+              )}
+
+              <span className="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                <CheckCircle2 size={12} />
+                NMC Approved
+              </span>
+
+              <span className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">
+                Rank #{uni.ranking}
+              </span>
+            </div>
+
+            {/* INFO BOX */}
+            <div className="bg-gray-50 rounded-xl p-4 flex justify-between items-center mb-5">
 
               <div>
                 <p className="text-xs text-gray-500">Intake</p>
-                <p className="font-semibold">Feb & Sept</p>
+                <p className="font-semibold text-gray-800">
+                  Feb & Sept
+                </p>
               </div>
 
               <div className="text-right">
-                <p className="text-xs text-gray-500">Country Rank</p>
-                <p className="font-semibold">{uni.ranking}</p>
+                <p className="text-xs text-gray-500">
+                  Tuition Fee
+                </p>
+                <p className="text-lg font-bold text-blue-600">
+                  {uni.fee}
+                </p>
               </div>
 
             </div>
 
-            {/* FOOTER */}
-            <div className="flex justify-between items-center">
+            {/* BUTTONS */}
+            <div className="flex gap-3">
 
-              <div>
-                <p className="text-xs text-gray-500">Tuition Fee</p>
-                <p className="text-xl font-bold">{uni.fee}</p>
-              </div>
+              <Link
+                href={`/universities/${uni.country.toLowerCase()}/${uni.slug}`}
+                className="flex-1 text-center py-2 text-sm font-semibold border border-gray-300 rounded-full text-gray-700 hover:bg-gray-100 transition"
+              >
+                View Details
+              </Link>
 
-              <div className="flex gap-2">
-
-                {/* DETAILS BUTTON */}
-                <Link
-                  href={`/universities/${uni.country.toLowerCase()}/${uni.slug}`}
-                  className="px-4 py-2 text-xs font-bold border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-all"
-                >
-                  Details
-                </Link>
-
-                {/* APPLY BUTTON */}
-                <Link
-                  href={`/apply`}
-                  className="px-6 py-2 text-xs font-bold rounded-full text-black bg-yellow-400 hover:bg-yellow-500 transition-all shadow-lg hover:scale-105"
-                >
-                  Apply
-                </Link>
-
-              </div>
+              <Link
+                href={`/apply`}
+                className="flex-1 text-center py-2 text-sm font-semibold rounded-full bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm"
+              >
+                Apply Now
+              </Link>
 
             </div>
-
           </div>
         ))}
 
       </div>
 
       {/* EXPLORE MORE */}
-      <div className="text-center mt-14">
+      <div className="text-center mt-16">
         <Link
           href={`/universities/${activeCountry.toLowerCase()}`}
-          className="px-10 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:scale-105 transition-all"
+          className="px-10 py-4 bg-yellow-400 text-black font-bold rounded-full shadow hover:scale-105 transition"
         >
           Explore More Universities →
         </Link>
       </div>
 
-      {/* FLOATING WHATSAPP */}
+      {/* FLOATING BUTTONS */}
       <div className="fixed bottom-6 left-6">
         <button className="bg-green-500 p-4 rounded-full shadow-xl animate-bounce hover:scale-110 transition">
           <MessageCircle className="text-white" />
         </button>
       </div>
 
-      {/* INFO BUTTON */}
       <div className="fixed bottom-6 right-6">
         <button className="bg-yellow-400 p-3 rounded-full shadow-xl hover:rotate-12 transition">
           <Info size={22} />
         </button>
       </div>
+
     </div>
   );
 }

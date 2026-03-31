@@ -1,8 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import AdmissionPopup from "@/components/AdmissionPopup";
-import Footer from "@/components/Footer";
+import QuickPopupForm from "@/components/AdmissionPopup";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,7 +28,7 @@ export default function RootLayout({ children }) {
         {/* <Navbar /> */}
         {children}
         {/* <Footer /> */}
-        <AdmissionPopup />
+        <QuickPopupForm/>
       </body>
     </html>
   );

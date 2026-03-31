@@ -25,7 +25,9 @@ export async function POST(req) {
       established: formData.get("established"),
       ranking: formData.get("ranking"),
       fee: formData.get("fee"),
+      isFeatured: formData.get("isFeatured") === "true",
       tags: JSON.parse(formData.get("tags") || "[]"),
+      features: JSON.parse(formData.get("features") || "[]"),
     };
 
     // 3. Handle Image Upload (ONLY if a new file is provided)

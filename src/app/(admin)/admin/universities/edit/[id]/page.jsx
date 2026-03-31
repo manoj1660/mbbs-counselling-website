@@ -12,11 +12,13 @@ export default function EditUniversity({ params }) {
   const [isSaving, setIsSaving] = useState(false);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
+  const [features, setFeatures] = useState([]);
+  const [featureInput, setFeatureInput] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
   // States for pre-filling
   const [formData, setFormData] = useState({
-    name: "", slug: "", country: "", location: "", established: "", ranking: "", fee: "",
+    name: "", slug: "", country: "", location: "", established: "", ranking: "", fee: "", isFeatured: false,
   });
 
   // 1. Fetch Existing Data (Pre-filling Logic)
@@ -38,8 +40,10 @@ export default function EditUniversity({ params }) {
             established: data.established || "",
             ranking: data.ranking || "",
             fee: data.fee || "",
+            isFeatured: data.isFeatured || false,
           });
           setTags(data.tags || []);
+          setFeatures(data.features || []);
           setImagePreview(data.image); // Showing existing image
         }
       } catch (err) {
@@ -74,9 +78,10 @@ export default function EditUniversity({ params }) {
     data.append("id", id); 
     
     Object.entries(formData).forEach(([key, value]) => {
-      if (value) data.append(key, value);
+      if (value !== null && value !== undefined && value !== "") data.append(key, value);
     });
     data.append("tags", JSON.stringify(tags));
+    data.append("features", JSON.stringify(features));
 
     try {
       const res = await fetch("/api/admin/universities", { 
@@ -246,6 +251,18 @@ export default function EditUniversity({ params }) {
                     <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Established</label>
                     <input className="dark-input" placeholder="1920" value={formData.established} onChange={e => setFormData({...formData, established: e.target.value})} />
                 </div>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-800">
+                <input 
+                  type="checkbox" 
+                  id="isFeatured" 
+                  checked={formData.isFeatured} 
+                  onChange={e => setFormData({...formData, isFeatured: e.target.checked})}
+                  className="w-4 h-4 text-blue-600 bg-slate-800 border-slate-600 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <label htmlFor="isFeatured" className="text-sm font-medium text-slate-300 cursor-pointer">
+                  Mark as Featured University
+                </label>
               </div>
             </div>
           </div>

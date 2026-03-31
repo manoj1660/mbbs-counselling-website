@@ -55,3 +55,42 @@ export async function DELETE(req, { params }) {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });
   }
 }
+
+
+// 🌟 PATCH: Update specific fields (like isFeatured)
+export async function PATCH(req, { params }) {
+  try {
+    await connectDB();
+
+    // Admin check
+    const auth = isAdmin(req);
+    if (!auth.ok) return auth.response;
+
+    // Next.js 15 Fix
+    const { id } = await params;
+    
+    // Request body se data nikalein
+    const body = await req.json();
+    const { isFeatured } = body;
+
+    // Sirf isFeatured field ko update karein
+    const updatedUni = await University.findByIdAndUpdate(
+      id,
+      { isFeatured },
+      { new: true } // Updated document wapas chahiye
+    );
+
+    if (!updatedUni) {
+      return NextResponse.json({ error: "University not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ 
+      message: "Status updated", 
+      isFeatured: updatedUni.isFeatured 
+    });
+
+  } catch (err) {
+    console.error("Patch Error:", err);
+    return NextResponse.json({ error: "Update failed" }, { status: 500 });
+  }
+}

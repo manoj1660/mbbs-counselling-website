@@ -14,6 +14,12 @@ const CountryDetailSchema = new mongoose.Schema(
       medium: String,
     },
 
+    seo: {
+      metaTitle: String,
+      metaDescription: String,
+      keywords: [String], // e.g. ["MBBS in Russia", "Saratov University Fees"]
+    },
+    
     description: String,
 
     whyStudy: [String],
@@ -26,7 +32,7 @@ const CountryDetailSchema = new mongoose.Schema(
 
     feeRange: String,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.models.CountryDetail ||

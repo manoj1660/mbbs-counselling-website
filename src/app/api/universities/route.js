@@ -5,17 +5,32 @@ import cloudinary from "@/lib/cloudinary";
 import { isAdmin } from "@/lib/isAdmin";
 
 // ✅ PUBLIC GET: Fetch all or filter by country
+// ✅ PUBLIC GET: Fetch all, filter by country OR featured status
 export async function GET(req) {
   try {
     await connectDB();
     const { searchParams } = new URL(req.url);
     const country = searchParams.get("country");
+    const featured = searchParams.get("featured"); // Naya filter pakadne ke liye
 
-    const query = country ? { country: country.toLowerCase() } : {};
-    const universities = await University.find(query).sort({ createdAt: -1 });
+    let query = {};
+
+    // 1. Agar country mangi hai (Partner Section ke liye)
+    if (country) {
+      query.country = { $regex: new RegExp(`^${country}$`, "i") }; 
+    }
+
+    // 2. Agar featured mangi hai (Top University Section ke liye)
+    if (featured === "true") {
+      query.isFeatured = true;
+    }
+
+    // .sort({ _id: -1 }) sabse latest entries ko pehle dikhayega
+    const universities = await University.find(query).sort({ _id: 1 });
 
     return NextResponse.json(universities, { status: 200 });
   } catch (error) {
+    console.error("Fetch Error:", error);
     return NextResponse.json({ error: "Failed to fetch" }, { status: 500 });
   }
 }

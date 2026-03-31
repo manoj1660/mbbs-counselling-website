@@ -8,93 +8,95 @@ export async function POST(req) {
   try {
     await connectDB();
 
-    const auth = isAdmin(req);
+    // 1. Authorization Check
+    const auth = await isAdmin(req); 
     if (!auth.ok) return auth.response;
 
     const formData = await req.formData();
 
-    // TEXT FIELDS
+    // 2. Fetching Basic Data
     const slug = formData.get("slug");
-    const title = formData.get("title");
-    const heroText = formData.get("heroText");
-    const description = formData.get("description");
-    const feeRange = formData.get("feeRange");
+    if (!slug) {
+      return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+    }
 
-    // STATS
-    const students = formData.get("students");
-    const colleges = formData.get("colleges");
-    const medium = formData.get("medium");
+    // 3. Array & SEO Data Parsing (Safe Parsing)
+    let whyStudy = [];
+    let seoData = { metaTitle: "", metaDescription: "", keywords: [] };
 
-    // ELIGIBILITY
-    const pcb = formData.get("pcb");
-    const age = formData.get("age");
-    const neet = formData.get("neet");
+    try {
+      whyStudy = JSON.parse(formData.get("whyStudy") || "[]");
+      seoData = JSON.parse(formData.get("seo") || "{}");
+    } catch (e) {
+      console.error("JSON Parsing Error:", e);
+    }
 
-    // ARRAY (whyStudy)
-    const whyStudy = JSON.parse(formData.get("whyStudy") || "[]");
-
-    // IMAGE (optional for update)
+    // 4. Image Processing
     const file = formData.get("file");
-
     let imageUrl;
 
-    if (file && file.size > 0) {
+    if (file && typeof file !== "string" && file.size > 0) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
       const uploadRes = await new Promise((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream(
-            { folder: "mission_global/country-details" },
-            (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            }
-          )
-          .end(buffer);
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { 
+            folder: "mission_global/country-details",
+            resource_type: "auto" 
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        uploadStream.end(buffer);
       });
-
       imageUrl = uploadRes.secure_url;
     }
 
-    // CREATE OR UPDATE
-    const existing = await CountryDetail.findOne({ slug });
+    // 5. Constructing Update Object (Matching Schema exactly)
+    const updateData = {
+      title: formData.get("title") || "",
+      heroText: formData.get("heroText") || "",
+      description: formData.get("description") || "",
+      feeRange: formData.get("feeRange") || "",
+      stats: {
+        students: formData.get("students") || "",
+        colleges: formData.get("colleges") || "",
+        medium: formData.get("medium") || "English",
+      },
+      eligibility: {
+        pcb: formData.get("pcb") || "",
+        age: formData.get("age") || "",
+        neet: formData.get("neet") || "",
+      },
+      whyStudy: whyStudy,
+      seo: {
+        metaTitle: seoData.metaTitle || "",
+        metaDescription: seoData.metaDescription || "",
+        keywords: seoData.keywords || [],
+      },
+    };
 
-    let data;
-
-    if (existing) {
-      data = await CountryDetail.findOneAndUpdate(
-        { slug },
-        {
-          title,
-          heroText,
-          description,
-          feeRange,
-          stats: { students, colleges, medium },
-          eligibility: { pcb, age, neet },
-          whyStudy,
-          ...(imageUrl && { image: imageUrl }),
-        },
-        { new: true }
-      );
-    } else {
-      data = await CountryDetail.create({
-        slug,
-        title,
-        heroText,
-        description,
-        feeRange,
-        stats: { students, colleges, medium },
-        eligibility: { pcb, age, neet },
-        whyStudy,
-        image: imageUrl,
-      });
+    // If a new image was uploaded, add it to the update
+    if (imageUrl) {
+      updateData.image = imageUrl;
     }
 
-    return NextResponse.json(data, { status: 200 });
+    // 6. DB Operation (Update if exists, Create if not)
+    const data = await CountryDetail.findOneAndUpdate(
+      { slug: slug },
+      { $set: updateData }, // $set use karna safe hota hai
+      { new: true, upsert: true, runValidators: true }
+    );
+
+    return NextResponse.json({ success: true, data }, { status: 200 });
+
   } catch (error) {
+    console.error("Critical Backend Error:", error);
     return NextResponse.json(
-      { error: error.message },
+      { error: "Internal Server Error: " + error.message },
       { status: 500 }
     );
   }
