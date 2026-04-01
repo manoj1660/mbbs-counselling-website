@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="space-y-6">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-xl">M</div>
-              <span className="text-2xl font-bold text-white tracking-tight">MISSION GLOBAL</span>
+              <span className="text-2xl font-bold text-white tracking-tight">MBBS GLOBAL</span>
             </div>
             <p className="text-sm leading-relaxed">
               Empowering Indian students with global medical education. We provide transparent, end-to-end guidance for MBBS admissions in top government universities worldwide.
@@ -79,11 +79,11 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>© 2026 Mission Global. All rights reserved.</p>
+          <p>© 2026 MISSION Global. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition">Terms & Conditions</Link>
-            <Link href="/sitemap" className="hover:text-white transition">Sitemap</Link>
+            <Link href="/" className="hover:text-white transition">Privacy Policy</Link>
+            <Link href="/" className="hover:text-white transition">Terms & Conditions</Link>
+            <Link href="/" className="hover:text-white transition">Sitemap</Link>
           </div>
           <p className="text-slate-500 italic">Developed by Saquib Dev</p>
         </div>
