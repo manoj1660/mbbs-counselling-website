@@ -2,55 +2,21 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X, Phone } from "lucide-react";
-
-const universities = [
-  {
-    name: "Saratov State Medical University",
-    country: "russia",
-    slug: "saratov-state-medical-university",
-  },
-  {
-    slug: "crimea-federal-university",
-    name: "Crimea Federal University",
-    country: "russia",
-  },
-  {
-    slug: "yaroslavl-state-medical-university",
-    name: "Yaroslavl State Medical University",
-    country: "russia",
-  },
-  {
-    slug: "far-eastern-federal-university",
-    name: "Far Eastern Federal University",
-    country: "russia",
-  },
-  {
-    slug: "kemerovo-state-medical-university",
-    name: "Kemerovo State Medical University",
-    country: "russia",
-  },
-  {
-    slug: "ivanovo-state-medical-university",
-    name: "Ivanovo State Medical University",
-    country: "russia",
-  },
-];
+import { Menu, X, Phone, User, LogOut, LayoutDashboard, ChevronRight } from "lucide-react";
 
 export default function ResponsiveNavbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
 
-  // Scroll effect
+  // Scroll effect for shadow and height
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fetch logged in user
+  // Fetch logged in user (Logic untouched)
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -61,249 +27,179 @@ export default function ResponsiveNavbar() {
         console.log(err);
       }
     };
-
     fetchUser();
   }, []);
 
-  const closeMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  // Logout
+  // Logout (Logic untouched)
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
     window.location.reload();
   };
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Universities", href: "/universities" },
+    { name: "Admission", href: "/admission" },
+    { name: "About", href: "/about" },
+  ];
+
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 border-b ${
-        scrolled || isMobileMenuOpen
-          ? "bg-white text-gray-800 shadow-md border-gray-100"
-          : "bg-white text-gray-800 border-transparent"
+      className={`fixed w-full z-[100] transition-all duration-300 bg-white ${
+        scrolled ? "py-2 shadow-md" : "py-4 border-b border-gray-100"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         
-        {/* Logo */}
-        <Link href="/" onClick={closeMenu}>
-          <div className="text-xl md:text-2xl font-black italic tracking-tighter cursor-pointer">
-            MBBS<span className="text-yellow-500">GLOBAL</span>
-          </div>
+        {/* LOGO */}
+        <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105">
+          <img 
+            src="/images/logo1.png" 
+            alt="MBBS Global Logo" 
+            className="h-10 md:h-12 w-auto object-contain"
+          />
         </Link>
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-8 font-semibold items-center">
-          <li>
-            <Link href="/" className="hover:text-blue-600 transition">
-              Home
+        {/* DESKTOP NAV */}
+        <div className="hidden lg:flex items-center space-x-8">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name}
+              href={link.href} 
+              className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              {link.name}
             </Link>
-          </li>
+          ))}
+        </div>
 
-          <li
-            onMouseEnter={() => setActiveMenu("universities")}
-            className="flex items-center gap-1 hover:text-blue-600 cursor-pointer transition py-2"
+        {/* ACTIONS */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <a 
+            href="tel:+919818187817" 
+            className="hidden md:flex items-center gap-2 text-xs font-bold text-blue-700 bg-blue-50 px-4 py-2 rounded-full border border-blue-100 transition-all hover:bg-blue-100"
           >
-            Universities <ChevronDown size={14} />
-          </li>
-
-          <li>
-            <Link href="/admission" className="hover:text-blue-600 transition">
-              Admission
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/about" className="hover:text-blue-600 transition">
-              About
-            </Link>
-          </li>
-
-          {/* ADMIN LINK (desktop menu) */}
-          {user?.role === "admin" && (
-            <li>
-              <Link href="/admin" className="text-blue-600 font-bold">
-                Admin
-              </Link>
-            </li>
-          )}
-        </ul>
-
-        {/* Buttons */}
-        <div className="flex items-center gap-3">
-          <p className="hidden sm:flex items-center gap-2 text-sm font-bold bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-100">
             <Phone size={14} /> +91 9818187817
-          </p>
+          </a>
 
-          {/* AUTH UI */}
-          {!user ? (
-            <>
-              <Link
-                href="/login"
-                className="hidden lg:block px-4 py-2 font-semibold text-sm"
-              >
-                Login
-              </Link>
-
-              <Link
-                href="/register"
-                className="hidden lg:block bg-black text-white px-4 py-2 rounded-full text-sm"
-              >
-                Register
-              </Link>
-            </>
-          ) : (
-            <>
-              {user.role === "admin" && (
-                <Link
-                  href="/admin"
-                  className="hidden lg:block bg-blue-600 text-white px-4 py-2 rounded-full text-sm"
-                >
-                  Admin Panel
+          {/* AUTH UI - LOGIC UNTOUCHED */}
+          <div className="hidden lg:flex items-center gap-3 ml-2 border-l pl-4 border-gray-200">
+            {!user ? (
+              <>
+                <Link href="/login" className="text-sm font-bold text-gray-600 hover:text-blue-600 transition">
+                  Login
                 </Link>
-              )}
+                <Link 
+                  href="/apply" 
+                  className="bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-100"
+                >
+                  Apply Now
+                </Link>
+              </>
+            ) : (
+              <div className="flex items-center gap-4">
+                {user.role === "admin" && (
+                  <Link href="/admin" className="p-2 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition">
+                    <LayoutDashboard size={20} />
+                  </Link>
+                )}
+                <button 
+                  onClick={handleLogout} 
+                  className="p-2 bg-red-50 rounded-full text-red-500 hover:bg-red-100 transition"
+                >
+                  <LogOut size={20} />
+                </button>
+                <Link 
+                  href="/apply" 
+                  className="bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-full"
+                >
+                  Apply Now
+                </Link>
+              </div>
+            )}
+          </div>
 
-              <button
-                onClick={handleLogout}
-                className="hidden lg:block bg-red-500 text-white px-4 py-2 rounded-full text-sm"
-              >
-                Logout
-              </button>
-            </>
-          )}
-
-          <Link
-            href="/apply"
-            className="hidden lg:block bg-yellow-400 text-black font-bold px-6 py-2 rounded-full hover:bg-yellow-500 transition shadow-lg text-sm"
-          >
-            Apply for Free Counselling
-          </Link>
-
+          {/* MOBILE TOGGLE */}
           <button
-            className="md:hidden p-2 hover:bg-gray-100 rounded-lg text-gray-800"
+            className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* DESKTOP DROPDOWN */}
+      {/* MOBILE MENU - IMPROVED UI */}
       <div
-        onMouseLeave={() => setActiveMenu(null)}
-        className={`hidden md:block absolute left-0 w-full bg-white shadow-2xl transition-all duration-300 overflow-hidden border-t ${
-          activeMenu
-            ? "max-h-[500px] opacity-100 border-b"
-            : "max-h-0 opacity-0 pointer-events-none"
+        className={`lg:hidden fixed inset-0 top-[60px] bg-white z-[90] transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-x-full"
         }`}
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-12 p-10 gap-8">
-          <div className="col-span-3 border-r pr-6 italic font-bold text-blue-900/40">
-            Explore Universities
+        <div className="p-6 flex flex-col h-full bg-white">
+          <div className="space-y-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between p-4 text-xl font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50"
+              >
+                {link.name} <ChevronRight size={20} className="text-gray-400" />
+              </Link>
+            ))}
           </div>
 
-          <div className="col-span-6 grid grid-cols-2 gap-4">
-            {activeMenu === "universities" &&
-              universities.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`/universities/${item.country}/${item.slug}`}
-                  className="text-sm text-gray-600 hover:text-blue-600 transition font-medium"
+          <div className="mt-auto pb-10 space-y-4">
+            <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-2xl mb-4">
+              <Phone size={20} className="text-blue-600" />
+              <span className="font-bold text-blue-900">+91 9818187817</span>
+            </div>
+
+            {!user ? (
+              <div className="grid grid-cols-2 gap-4">
+                <Link 
+                  href="/login" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="py-4 text-center font-bold text-gray-700 bg-gray-100 rounded-xl"
                 >
-                  • {item.name}
+                  Login
                 </Link>
-              ))}
-          </div>
-
-          <div className="col-span-3 bg-blue-50 p-6 rounded-2xl">
-            <h5 className="text-xs font-bold text-blue-900 uppercase mb-3">
-              Guide 2026
-            </h5>
-
-            <p className="text-xs text-blue-700 leading-relaxed">
-              Download the full MBBS admission guide for Indian students
-              studying abroad.
-            </p>
-
+                <Link 
+                  href="/register" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="py-4 text-center font-bold text-white bg-black rounded-xl"
+                >
+                  Register
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {user.role === "admin" && (
+                  <Link 
+                    href="/admin" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-4 w-full text-center font-bold text-white bg-blue-600 rounded-xl"
+                  >
+                    <LayoutDashboard size={20} /> Admin Panel
+                  </Link>
+                )}
+                <button 
+                  onClick={handleLogout}
+                  className="flex items-center justify-center gap-2 py-4 w-full text-center font-bold text-red-500 bg-red-50 rounded-xl"
+                >
+                  <LogOut size={20} /> Logout
+                </button>
+              </div>
+            )}
+            
             <Link
-              href="/universities"
-              className="text-blue-600 font-semibold text-sm mt-4 block"
+              href="/apply"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-center text-lg shadow-xl shadow-blue-100"
             >
-              Explore All Universities →
+              Free Counselling
             </Link>
           </div>
-        </div>
-      </div>
-
-      {/* MOBILE MENU */}
-      <div
-        className={`md:hidden fixed inset-0 top-[68px] bg-white transition-transform duration-300 ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="p-6 h-full overflow-y-auto pb-20 space-y-6">
-          <Link href="/" onClick={closeMenu} className="block text-lg font-bold">
-            Home
-          </Link>
-
-          <Link
-            href="/universities"
-            onClick={closeMenu}
-            className="block text-lg font-bold"
-          >
-            Universities
-          </Link>
-
-          <Link
-            href="/admission"
-            onClick={closeMenu}
-            className="block text-lg font-bold"
-          >
-            Admission
-          </Link>
-
-          <Link
-            href="/about"
-            onClick={closeMenu}
-            className="block text-lg font-bold"
-          >
-            About
-          </Link>
-
-          {/* MOBILE AUTH */}
-          {!user ? (
-            <>
-              <Link href="/login" onClick={closeMenu} className="block text-lg font-bold">
-                Login
-              </Link>
-              <Link href="/register" onClick={closeMenu} className="block text-lg font-bold">
-                Register
-              </Link>
-            </>
-          ) : (
-            <>
-              {user.role === "admin" && (
-                <Link href="/admin" onClick={closeMenu} className="block text-lg font-bold">
-                  Admin Panel
-                </Link>
-              )}
-
-              <button
-                onClick={handleLogout}
-                className="block text-lg font-bold text-red-500"
-              >
-                Logout
-              </button>
-            </>
-          )}
-
-          <Link
-            href="/apply"
-            onClick={closeMenu}
-            className="block w-full mt-10 bg-yellow-400 text-black py-4 rounded-xl font-bold shadow-xl text-center"
-          >
-            Apply for Free Counselling
-          </Link>
         </div>
       </div>
     </nav>

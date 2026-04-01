@@ -79,7 +79,8 @@ export default function PageSettings() {
             {[
               { id: "universities-main", label: "All Universities" },
               { id: "home-main", label: "Home Page" },
-              { id: "contact-main", label: "Contact Us" }
+              { id: "contact-main", label: "Contact Us" },
+              { id: "about", label: "About Us" }
             ].map((page) => (
               <button
                 key={page.id}
