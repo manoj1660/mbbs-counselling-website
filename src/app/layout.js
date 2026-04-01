@@ -18,6 +18,9 @@ export const metadata = {
   icons: {
     icon: "/metaicon.png", 
   },
+  alternates: {
+    canonical: "https://www.mbbsstudyabroad.com",
+  },
   // 👇 Ye wala section add kar do Google Verification ke liye
   verification: {
     google: "pNedgnfHPevX6PeNE1m0c2FDHd8O51iDC4r1xXwRMEg",
