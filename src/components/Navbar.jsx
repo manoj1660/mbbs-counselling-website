@@ -176,7 +176,7 @@ export default function ResponsiveNavbar() {
             href="/apply"
             className="hidden lg:block bg-yellow-400 text-black font-bold px-6 py-2 rounded-full hover:bg-yellow-500 transition shadow-lg text-sm"
           >
-            Free Consultation
+            Apply for Free Counselling
           </Link>
 
           <button
@@ -297,9 +297,13 @@ export default function ResponsiveNavbar() {
             </>
           )}
 
-          <button className="w-full mt-10 bg-yellow-400 py-4 rounded-xl font-bold shadow-xl">
+          <Link
+            href="/apply"
+            onClick={closeMenu}
+            className="block w-full mt-10 bg-yellow-400 text-black py-4 rounded-xl font-bold shadow-xl text-center"
+          >
             Apply for Free Counselling
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
