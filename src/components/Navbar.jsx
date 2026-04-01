@@ -88,7 +88,7 @@ export default function ResponsiveNavbar() {
         {/* Logo */}
         <Link href="/" onClick={closeMenu}>
           <div className="text-xl md:text-2xl font-black italic tracking-tighter cursor-pointer">
-            MISSION<span className="text-yellow-500">GLOBAL</span>
+            MBBS<span className="text-yellow-500">GLOBAL</span>
           </div>
         </Link>
 
