@@ -79,7 +79,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>© 2026 MISSION Global. All rights reserved.</p>
+          <p>© 2026 MISSION Global LLC . All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/" className="hover:text-white transition">Privacy Policy</Link>
             <Link href="/" className="hover:text-white transition">Terms & Conditions</Link>
