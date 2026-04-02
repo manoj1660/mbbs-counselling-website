@@ -16,7 +16,7 @@ export const metadata = {
   title: "MBBS Study Abroad - Your Gateway to Global Medical Education",
   description: "MBBS Study Abroad is your trusted partner for direct admissions and transparent guidance...",
   icons: {
-    icon: "/metaicon.png", 
+    icon: "/images/logo1.png", 
   },
   alternates: {
     canonical: "https://www.mbbsstudyabroad.com",

@@ -22,8 +22,8 @@ export async function generateMetadata() {
   const data = await PageSetting.findOne({ pageName: "home-main" }).lean();
 
   return {
-    title: data?.seo?.metaTitle || "Default Home Title",
-    description: data?.seo?.metaDescription || "Default Home Description",
+    title: data?.seo?.metaTitle || "MBBS abroad - Your Gateway to Global Medical Education",
+    description: data?.seo?.metaDescription || "MBBS Study Abroad is your trusted partner for direct admissions and transparent guidance...",
   };
 }
 
