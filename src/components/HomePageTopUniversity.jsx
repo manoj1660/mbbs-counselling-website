@@ -6,6 +6,7 @@ import University from "@/models/University";
 
 // Force fresh data every time
 export const dynamic = "force-dynamic";
+export const revalidate = 0; // Ye live site ko batayega ki cache kabhi mat karo
 
 export default async function HomePageTopUniversity() {
   // 1. Database se seedha Featured data fetch karein
