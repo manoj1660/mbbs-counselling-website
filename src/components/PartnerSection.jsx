@@ -57,10 +57,18 @@ export default function PartnerSection() {
     sliderRef.current?.scrollBy({ left: 250, behavior: "smooth" });
   };
 
-  const displayUniversities = universities.filter(
-    (uni) =>
-      uni.country?.toLowerCase() === activeCountry?.toLowerCase()
+  // 🔥 NEW LOGIC: Priority Mix (Featured first, then Normal)
+  // 1. Pehle active country ki sabhi unis filter karein
+  const countryUnis = universities.filter(
+    (uni) => uni.country?.toLowerCase() === activeCountry?.toLowerCase()
   );
+
+  // 2. Featured aur Non-Featured ko alag karein
+  const featured = countryUnis.filter(u => u.isFeatured === true);
+  const normal = countryUnis.filter(u => u.isFeatured !== true);
+
+  // 3. Merge karein (Featured pehle) aur exactly 6 uthayein
+  const displayUniversities = [...featured, ...normal].slice(0, 6);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#73b2f1] via-[#6eb9ff] to-[#3793f5] p-6 md:p-12 relative">
@@ -121,9 +129,9 @@ export default function PartnerSection() {
       {/* UNIVERSITY GRID */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
 
-        {displayUniversities.slice(0, 6).map((uni, index) => (
+        {displayUniversities.map((uni, index) => (
           <div
-            key={`${uni.id || "noid"}-${uni.slug || index}`}
+            key={`${uni._id || index}`}
             className="group bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border border-gray-200 transition-all duration-300 hover:-translate-y-2"
           >
             {/* TOP */}
@@ -170,7 +178,7 @@ export default function PartnerSection() {
               </span>
 
               <span className="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">
-                Rank #{uni.ranking}
+                Rank #{uni.ranking || 'N/A'}
               </span>
             </div>
 
@@ -199,7 +207,7 @@ export default function PartnerSection() {
             <div className="flex gap-3">
 
               <Link
-                href={`/universities/${uni.country.toLowerCase()}/${uni.slug}`}
+                href={`/universities/${uni.country?.toLowerCase()}/${uni.slug}`}
                 className="flex-1 text-center py-2 text-sm font-semibold border border-gray-300 rounded-full text-gray-700 hover:bg-gray-100 transition"
               >
                 View Details
