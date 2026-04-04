@@ -72,9 +72,8 @@ export default function Footer() {
     <div>
       <p className="text-blue-400 font-semibold">Delhi NCR</p>
       <p>
-        SF 1 Second Floor, Vishnu Place,<br />
-        Aironda Chowk, Mathura Road,<br />
-        Faridabad, Delhi NCR
+        8th floor NPX Building sector<br />
+        153 Noida Delhi NCR
       </p>
       <p className="text-slate-400 mt-1">+91 9818187817</p>
     </div>
