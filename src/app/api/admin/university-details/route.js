@@ -14,7 +14,7 @@ export async function POST(req) {
 
     const body = await req.json();
     
-    // Destructuring new fields including detailedContent
+    // Destructuring fields including the NEW websiteUrl
     const { 
       oldSlug, 
       newSlug, 
@@ -22,7 +22,8 @@ export async function POST(req) {
       imageAlt, 
       rating, 
       courseDuration,
-      detailedContent, // <--- NAYA FIELD TIPTAP KE LIYE
+      detailedContent, 
+      websiteUrl,      // <--- NAYA FIELD RECEIVE KIYA
       ...otherData 
     } = body;
 
@@ -30,7 +31,7 @@ export async function POST(req) {
       return NextResponse.json({ error: "Slug is required" }, { status: 400 });
     }
 
-    // 2. Update University Detail (Deep Info + SEO + Rich Text)
+    // 2. Update University Detail (Deep Info + SEO + Rich Text + Website Link)
     const updatedDetail = await UniversityDetail.findOneAndUpdate(
       { slug: oldSlug || newSlug },
       { 
@@ -40,21 +41,20 @@ export async function POST(req) {
         imageAlt,         // For Image SEO
         rating,           // For Schema
         courseDuration,   // For Schema
-        detailedContent,  // <--- ISSE DATA SAVE HOGA (HTML String)
+        detailedContent,  // HTML String from Tiptap
+        websiteUrl,       // <--- ISSE WEBSITE LINK SAVE HOGA
         updatedAt: Date.now() 
       },
       { new: true, upsert: true, runValidators: true }
     );
 
     // 3. ⚡ Sync Slug with University Card (To prevent 404)
-    // Card sync mein hum sirf basic info rakhte hain
     if (oldSlug) {
       await University.findOneAndUpdate(
         { slug: oldSlug },
         { 
           slug: newSlug,
           name: otherData.name,
-          // Card par agar location ya image badli hai toh wo bhi sync kar sakte hain
           location: otherData.location,
           image: otherData.image
         }
@@ -63,7 +63,7 @@ export async function POST(req) {
 
     return NextResponse.json({ 
       success: true, 
-      message: "University details, SEO & Rich Text updated successfully! ✅",
+      message: "University details, SEO & Website Link updated successfully! ✅",
       data: updatedDetail 
     }, { status: 200 });
 

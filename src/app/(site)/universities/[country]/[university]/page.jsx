@@ -143,6 +143,22 @@ export default async function UniversityDetailPage({ params }) {
             </p>
             <p className="font-bold text-green-600 text-lg">Approved</p>
           </div>
+          <div>
+            {data.websiteUrl && (
+              <a 
+                href={data.websiteUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-between w-full p-4 bg-amber-400 rounded-2xl transition-all group"
+              >
+                <div className="flex items-center gap-3">
+                  <Globe size={18} className="text-blue-400" />
+                  <span className="text-xs font-bold uppercase tracking-wider">visit university website</span>
+                </div>
+                <ArrowRight size={16} className="text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
 

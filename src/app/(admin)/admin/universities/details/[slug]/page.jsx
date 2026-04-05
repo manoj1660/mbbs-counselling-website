@@ -22,7 +22,8 @@ import {
   FileText,
   Zap,
   Building2,
-  Briefcase
+  Briefcase,
+  Globe // Added for Website Link icon
 } from "lucide-react";
 
 export default function UniversityDetailsPage() {
@@ -57,6 +58,7 @@ export default function UniversityDetailsPage() {
     clinicalRotation: { practicalTraining: "" },
     cityLife: { name: "", description: "", travel: "" },
     detailedContent: "",
+    websiteUrl: "", // Added websiteUrl field
   });
 
   // --- DYNAMIC ARRAYS STATE ---
@@ -91,6 +93,7 @@ export default function UniversityDetailsPage() {
             clinicalRotation: d.clinicalRotation || { practicalTraining: "" },
             cityLife: d.cityLife || { name: "", description: "", travel: "" },
             detailedContent: d.detailedContent || "",
+            websiteUrl: d.websiteUrl || "", // Added fetch logic
           });
           setCurrentSlug(d.slug || originalSlug);
           setSeoData({
@@ -242,6 +245,20 @@ export default function UniversityDetailsPage() {
                 </label>
               </div>
             </div>
+
+            {/* WEBSITE URL FIELD ADDED HERE */}
+            <div className="flex items-center gap-3 mb-4">
+               <div className="bg-blue-50 p-3 rounded-xl text-blue-600">
+                  <Globe size={20} />
+               </div>
+               <input 
+                 className="form-input-pro flex-1 border-blue-100" 
+                 placeholder="Official Website Link (e.g. https://university.com)" 
+                 value={formData.websiteUrl} 
+                 onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })} 
+               />
+            </div>
+
             <textarea className="form-input-pro min-h-[100px]" placeholder="Brief introduction..." value={formData.intro} onChange={(e) => setFormData({ ...formData, intro: e.target.value })} />
           </section>
 
@@ -320,7 +337,7 @@ export default function UniversityDetailsPage() {
             ))}
           </section>
 
-          {/* Documents Required (NEWLY ADDED BACK) */}
+          {/* Documents Required */}
           <section className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm border-l-4 border-l-red-500">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold text-red-600 flex items-center gap-2"><FileText size={20} /> Documents</h2>
@@ -334,7 +351,7 @@ export default function UniversityDetailsPage() {
             ))}
           </section>
 
-          {/* Clinical Rotation (NEWLY ADDED BACK) */}
+          {/* Clinical Rotation */}
           <section className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm border-l-4 border-l-blue-400">
             <h2 className="text-lg font-bold text-blue-600 mb-4 flex items-center gap-2"><Stethoscope size={20} /> Clinical Work</h2>
             <div className="space-y-3">
@@ -381,9 +398,6 @@ export default function UniversityDetailsPage() {
     </div>
   );
 }
-
-
-
 
 
 // "use client";

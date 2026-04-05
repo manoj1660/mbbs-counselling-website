@@ -62,6 +62,11 @@ const UniversityDetailSchema = new mongoose.Schema({
     type: String, 
     default: "" 
   },
+  websiteUrl: { 
+  type: String, 
+  default: "",
+  match: [/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/, 'Please fill a valid URL']
+},
 
   updatedAt: { type: Date, default: Date.now },
 });
