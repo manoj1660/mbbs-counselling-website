@@ -11,7 +11,8 @@ import {
   ArrowRight,
   ShieldCheck,
   Building2,
-  MessageSquare
+  MessageSquare,
+  Loader2
 } from "lucide-react";
 
 export default function AdmissionForm() {
@@ -44,6 +45,10 @@ export default function AdmissionForm() {
     }
   };
 
+  // --- FIXED INPUT STYLE VARIABLE ---
+  // Forced bg-white and text-[#0f172a] to stop dark mode inheritance
+  const inputBaseClass = "w-full pl-12 pr-4 py-4 bg-white text-[#0f172a] border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium placeholder:text-slate-400";
+
   if (submitted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6">
@@ -55,7 +60,7 @@ export default function AdmissionForm() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="text-green-500" size={40} />
           </div>
-          <h2 className="text-3xl font-black text-slate-900 mb-2">Application Received!</h2>
+          <h2 className="text-3xl font-black text-[#0f172a] mb-2">Application Received!</h2>
           <p className="text-slate-500 mb-8">Our senior counsellor will contact you within 24 hours to discuss your MBBS journey.</p>
           <button 
             onClick={() => window.location.href = "/"}
@@ -117,40 +122,27 @@ export default function AdmissionForm() {
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-[5rem] -mr-16 -mt-16"></div>
 
-          <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
-            <h3 className="text-2xl font-black text-slate-900 mb-6 text-center">Admission Inquiry</h3>
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-5 text-left">
+            <h3 className="text-2xl font-black text-[#0f172a] mb-6 text-center">Admission Inquiry</h3>
 
-            {/* Name Input (Compulsory) */}
             <div className="relative">
               <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="text" required name="fullName" placeholder="Full Name *"
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium"
-              />
+              <input type="text" required name="fullName" placeholder="Full Name *" className={inputBaseClass} />
             </div>
 
-            {/* Email (Compulsory) */}
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="email" required name="email" placeholder="Email Address *"
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium"
-              />
+              <input type="email" required name="email" placeholder="Email Address *" className={inputBaseClass} />
             </div>
 
-            {/* Phone (Compulsory) */}
             <div className="relative">
               <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="tel" required name="phone" placeholder="Phone Number *"
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium"
-              />
+              <input type="tel" required name="phone" placeholder="Phone Number *" className={inputBaseClass} />
             </div>
 
-            {/* Preferred Country (Optional) */}
             <div className="relative">
               <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <select name="country" className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium appearance-none">
+              <select name="country" className={`${inputBaseClass} appearance-none`}>
                 <option value="">Preferred Country (Optional)</option>
                 <option value="russia">Russia</option>
                 <option value="kazakhstan">Kazakhstan</option>
@@ -160,30 +152,23 @@ export default function AdmissionForm() {
               </select>
             </div>
 
-            {/* Preferred University (Optional) */}
             <div className="relative">
               <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-              <input 
-                type="text" name="university" placeholder="Preferred University (Optional)"
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium"
-              />
+              <input type="text" name="university" placeholder="Preferred University (Optional)" className={inputBaseClass} />
             </div>
 
-            {/* Message (Optional) */}
             <div className="relative">
               <MessageSquare className="absolute left-4 top-6 text-slate-400" size={18} />
-              <textarea 
-                name="message" placeholder="Your Message or Questions (Optional)"
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium h-32"
-              ></textarea>
+              <textarea name="message" placeholder="Your Message or Questions (Optional)" className={`${inputBaseClass} h-32 resize-none pt-4`}></textarea>
             </div>
 
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-200 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-70"
+              className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-xl shadow-blue-200 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 disabled:opacity-70 active:scale-95"
             >
-              {isSubmitting ? "Sending..." : "Get Free Consultation"} <ArrowRight size={20} />
+              {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : "Get Free Consultation"} 
+              {!isSubmitting && <ArrowRight size={20} />}
             </button>
             
             <p className="text-[10px] text-center text-slate-400 uppercase tracking-widest mt-4">
