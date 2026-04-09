@@ -5,12 +5,7 @@ import WhoWeAreSection from "@/components/WhoWeAreSection";
 // import PartnerSection from "@/components/PartnerSection";
 import PartnerSection from "@/components/PartnerSection";
 import Navbar from "@/components/Navbar";
-import University from "@/models/University";
-// 1. Import your new component and the data
 import HomePageTopUniversity from "@/components/HomePageTopUniversity";
-import { UNIVERSITIES } from "@/data/universities";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 import connectDB from "@/lib/db";
 import PageSetting from "@/models/PageSetting";
@@ -37,7 +32,6 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <HomePageTopUniversity/>
-      {/* <PartnerSection /> */}
       <PartnerSection />
       <WhoWeAreSection />
       <WhyStudyAbroad />

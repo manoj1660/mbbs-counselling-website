@@ -164,13 +164,13 @@ export default function ResponsiveNavbar() {
                 >
                   Login
                 </Link>
-                <Link 
+                {/* <Link 
                   href="/register" 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="py-4 text-center font-bold text-white bg-black rounded-xl"
                 >
                   Register
-                </Link>
+                </Link> */}
               </div>
             ) : (
               <div className="space-y-3">
