@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import {
   MapPin,
   CheckCircle2,
@@ -328,13 +329,16 @@ export default async function UniversityDetailPage({ params }) {
               MBBS seats are limited for the current batch. Register today for a
               free counseling session.
             </p>
-            <button className="w-full bg-white text-blue-600 font-black py-4 rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2 group">
+            <Link 
+              href="/apply" 
+              className="w-full bg-white text-blue-600 font-black py-4 rounded-2xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2 group"
+            >
               Apply Now{" "}
               <ArrowRight
                 size={18}
                 className="group-hover:translate-x-1 transition-transform"
               />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

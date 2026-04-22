@@ -1,12 +1,6 @@
 import connectDB from "@/lib/db";
 import PageSetting from "@/models/PageSetting";
-import {
-  Users,
-  Award,
-  Globe2,
-  ShieldCheck,
-  PhoneCall,
-} from "lucide-react";
+import { Users, Award, Globe2, ShieldCheck, PhoneCall } from "lucide-react";
 
 // SEO Metadata
 export async function generateMetadata() {
@@ -31,20 +25,17 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="bg-white text-slate-800">
-
       {/* HERO */}
       <section className="bg-slate-50 py-24 text-center px-6">
         <h1 className="text-4xl md:text-6xl font-black mb-6">
           Your Trusted Partner for
-          <span className="block text-blue-600">
-            MBBS Abroad Journey
-          </span>
+          <span className="block text-blue-600">MBBS Abroad Journey</span>
         </h1>
 
         <p className="max-w-3xl mx-auto text-lg text-slate-600">
           We help Indian students achieve their dream of becoming doctors by
-          providing honest, transparent, and complete guidance for studying
-          MBBS abroad. From university selection to visa assistance, we handle
+          providing honest, transparent, and complete guidance for studying MBBS
+          abroad. From university selection to visa assistance, we handle
           everything.
         </p>
       </section>
@@ -70,7 +61,6 @@ export default function AboutPage() {
       {/* ABOUT CONTENT */}
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
           <img
             src="/images/medicalstudent.jpg"
             alt="Medical Students"
@@ -78,16 +68,14 @@ export default function AboutPage() {
           />
 
           <div>
-            <h2 className="text-3xl font-bold mb-6">
-              Why Choose Us?
-            </h2>
+            <h2 className="text-3xl font-bold mb-6">Why Choose Us?</h2>
 
             <p className="text-slate-600 mb-6 leading-relaxed">
               Many students face confusion, misinformation, and hidden charges
               while planning to study MBBS abroad. Our mission is to simplify
-              this journey by offering 100% genuine and transparent guidance.
-              We ensure that every student gets admission to recognized and
-              reputed universities without any middle agents.
+              this journey by offering 100% genuine and transparent guidance. We
+              ensure that every student gets admission to recognized and reputed
+              universities without any middle agents.
             </p>
 
             <ul className="space-y-3">
@@ -111,7 +99,6 @@ export default function AboutPage() {
       {/* MISSION / VISION */}
       <section className="bg-slate-50 py-20 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-
           <div className="bg-white p-8 rounded-2xl shadow">
             <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
             <p className="text-slate-600">
@@ -129,7 +116,6 @@ export default function AboutPage() {
               term relationships with students.
             </p>
           </div>
-
         </div>
       </section>
 
@@ -143,11 +129,13 @@ export default function AboutPage() {
           Talk to our experts and get personalized guidance for free.
         </p>
 
-        <button className="bg-yellow-400 text-black px-8 py-4 rounded-xl font-semibold flex items-center gap-2 mx-auto">
+        <a
+          href="tel:+919818187817"
+          className="bg-yellow-400 text-black px-8 py-4 rounded-xl font-semibold flex items-center gap-2 mx-auto w-fit"
+        >
           <PhoneCall size={18} /> Book Free Consultation
-        </button>
+        </a>
       </section>
-
     </div>
   );
 }

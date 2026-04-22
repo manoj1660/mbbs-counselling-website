@@ -46,7 +46,7 @@ export default function ResponsiveNavbar() {
   return (
     <nav
       className={`fixed w-full z-[100] transition-all duration-300 bg-white ${
-        scrolled ? "py-2 shadow-md" : "py-4 border-b border-gray-100"
+        scrolled ? "py-3 shadow-md" : "py-4 border-b border-gray-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -54,9 +54,9 @@ export default function ResponsiveNavbar() {
         {/* LOGO */}
         <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105">
           <img 
-            src="/images/logo1.png" 
+            src="/images/mbbsgloballogo.png" 
             alt="MBBS Global Logo" 
-            className="h-10 md:h-12 w-auto object-contain"
+            className="h-12 w-12 object-cover scale-150"
           />
         </Link>
 
