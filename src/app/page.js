@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import HomePageTopUniversity from "@/components/HomePageTopUniversity";
 import Footer from "@/components/Footer";
 import connectDB from "@/lib/db";
+import NoticeBar from "@/components/NoticeBar";
 import PageSetting from "@/models/PageSetting";
 // app/page.js
 export async function generateMetadata() {
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <main>
+      <NoticeBar />
       <Navbar />
       <HeroSection />
       <StatsSection />
