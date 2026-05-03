@@ -29,8 +29,10 @@ export default function Home() {
 
   return (
     <main>
-      <NoticeBar />
-      <Navbar />
+      <header className="sticky top-0 z-50"> 
+        <NoticeBar />
+        <Navbar />
+      </header>
       <HeroSection />
       <StatsSection />
       <HomePageTopUniversity/>
