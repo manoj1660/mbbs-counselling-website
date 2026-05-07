@@ -13,57 +13,79 @@ export async function POST(req) {
     const auth = isAdmin(req);
     if (!auth.ok) return auth.response;
 
-    // 2. FormData receive karna (Same as your second code)
-    const formData = await req.formData();
+    // 2. Receive JSON data (Fixes the TypeError)
+    const body = await req.json(); 
     
-    const oldSlug = formData.get("oldSlug");
-    const newSlug = formData.get("newSlug");
-    const file = formData.get("file"); // Image file from input
-
-    // Saara data ek object mein compile karna
-    const updateData = {
-      slug: newSlug,
-      name: formData.get("name"),
-      location: formData.get("location"),
-      imageAlt: formData.get("imageAlt"),
-      rating: formData.get("rating"),
-      courseDuration: formData.get("courseDuration"),
-      detailedContent: formData.get("detailedContent"),
-      websiteUrl: formData.get("websiteUrl"), // <--- Aapka naya field
-      seo: JSON.parse(formData.get("seo") || "{}"), 
-      updatedAt: Date.now()
-    };
+    const { 
+      oldSlug, 
+      newSlug, 
+      image, // This is the Base64 string from your frontend
+      name, 
+      location, 
+      imageAlt, 
+      rating, 
+      courseDuration, 
+      detailedContent, 
+      websiteUrl, 
+      seo,
+      highlights,
+      eligibility,
+      documents,
+      admissionSteps,
+      tuitionFees,
+      clinicalRotation,
+      accommodation
+    } = body;
 
     if (!newSlug) {
       return NextResponse.json({ error: "Slug is required" }, { status: 400 });
     }
 
-    // 3. ⚡ Cloudinary Upload Logic (Same as your second code)
-    if (file && file instanceof File && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      
-      const uploadRes = await new Promise((resolve, reject) => {
-        cloudinary.uploader.upload_stream(
-          { folder: "mission_global/details" },
-          (error, result) => (error ? reject(error) : resolve(result))
-        ).end(buffer);
-      });
-      
-      updateData.image = uploadRes.secure_url; // Naya Cloudinary URL mil gaya
+    // 3. Compile Update Object
+    const updateData = {
+      slug: newSlug,
+      name,
+      location,
+      imageAlt,
+      rating,
+      courseDuration,
+      detailedContent,
+      websiteUrl,
+      seo,
+      highlights,
+      eligibility,
+      documents,
+      admissionSteps,
+      tuitionFees,
+      clinicalRotation,
+      accommodation,
+      updatedAt: Date.now()
+    };
+
+    // 4. ⚡ Cloudinary Upload (Handling Base64 String)
+    // If image starts with "data:image", it's a new upload from the frontend
+    if (image && image.startsWith("data:image")) {
+      try {
+        const uploadRes = await cloudinary.uploader.upload(image, {
+          folder: "mission_global/details",
+        });
+        updateData.image = uploadRes.secure_url; 
+      } catch (uploadErr) {
+        console.error("Cloudinary Upload Failed:", uploadErr);
+        // Fallback to existing image if upload fails
+      }
     } else {
-      // Agar nayi file nahi hai, toh purana image URL use karein jo hidden input se aayega
-      updateData.image = formData.get("image"); 
+      updateData.image = image; // Keep existing URL
     }
 
-    // 4. Update University Detail Page
+    // 5. Update University Detail Page
     const updatedDetail = await UniversityDetail.findOneAndUpdate(
       { slug: oldSlug || newSlug },
       { $set: updateData },
       { new: true, upsert: true, runValidators: true }
     );
 
-    // 5. ⚡ Sync with University Card (To prevent 404)
+    // 6. ⚡ Sync with University Card (Main List)
     if (oldSlug) {
       await University.findOneAndUpdate(
         { slug: oldSlug },
@@ -71,14 +93,14 @@ export async function POST(req) {
           slug: newSlug,
           name: updateData.name,
           location: updateData.location,
-          image: updateData.image // Cloudinary URL sync ho raha hai
+          image: updateData.image 
         }
       );
     }
 
     return NextResponse.json({ 
       success: true, 
-      message: "Details, Image & Website Link Updated! ✅",
+      message: "University data and image synced successfully! ✅",
       data: updatedDetail 
     }, { status: 200 });
 
@@ -87,6 +109,98 @@ export async function POST(req) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+
+
+// import { NextResponse } from "next/server";
+// import connectDB from "@/lib/db";
+// import UniversityDetail from "@/models/UniversityDetail";
+// import University from "@/models/University"; 
+// import cloudinary from "@/lib/cloudinary"; 
+// import { isAdmin } from "@/lib/isAdmin";
+
+// export async function POST(req) {
+//   try {
+//     await connectDB();
+
+//     // 1. Admin Check
+//     const auth = isAdmin(req);
+//     if (!auth.ok) return auth.response;
+
+//     // 2. FormData receive karna (Same as your second code)
+//     const formData = await req.formData();
+    
+//     const oldSlug = formData.get("oldSlug");
+//     const newSlug = formData.get("newSlug");
+//     const file = formData.get("file"); // Image file from input
+
+//     // Saara data ek object mein compile karna
+//     const updateData = {
+//       slug: newSlug,
+//       name: formData.get("name"),
+//       location: formData.get("location"),
+//       imageAlt: formData.get("imageAlt"),
+//       rating: formData.get("rating"),
+//       courseDuration: formData.get("courseDuration"),
+//       detailedContent: formData.get("detailedContent"),
+//       websiteUrl: formData.get("websiteUrl"), // <--- Aapka naya field
+//       seo: JSON.parse(formData.get("seo") || "{}"), 
+//       updatedAt: Date.now()
+//     };
+
+//     if (!newSlug) {
+//       return NextResponse.json({ error: "Slug is required" }, { status: 400 });
+//     }
+
+//     // 3. ⚡ Cloudinary Upload Logic (Same as your second code)
+//     if (file && file instanceof File && file.size > 0) {
+//       const bytes = await file.arrayBuffer();
+//       const buffer = Buffer.from(bytes);
+      
+//       const uploadRes = await new Promise((resolve, reject) => {
+//         cloudinary.uploader.upload_stream(
+//           { folder: "mission_global/details" },
+//           (error, result) => (error ? reject(error) : resolve(result))
+//         ).end(buffer);
+//       });
+      
+//       updateData.image = uploadRes.secure_url; // Naya Cloudinary URL mil gaya
+//     } else {
+//       // Agar nayi file nahi hai, toh purana image URL use karein jo hidden input se aayega
+//       updateData.image = formData.get("image"); 
+//     }
+
+//     // 4. Update University Detail Page
+//     const updatedDetail = await UniversityDetail.findOneAndUpdate(
+//       { slug: oldSlug || newSlug },
+//       { $set: updateData },
+//       { new: true, upsert: true, runValidators: true }
+//     );
+
+//     // 5. ⚡ Sync with University Card (To prevent 404)
+//     if (oldSlug) {
+//       await University.findOneAndUpdate(
+//         { slug: oldSlug },
+//         { 
+//           slug: newSlug,
+//           name: updateData.name,
+//           location: updateData.location,
+//           image: updateData.image // Cloudinary URL sync ho raha hai
+//         }
+//       );
+//     }
+
+//     return NextResponse.json({ 
+//       success: true, 
+//       message: "Details, Image & Website Link Updated! ✅",
+//       data: updatedDetail 
+//     }, { status: 200 });
+
+//   } catch (error) {
+//     console.error("ADMIN_DETAILS_POST_ERROR:", error);
+//     return NextResponse.json({ error: error.message }, { status: 500 });
+//   }
+// }
 
 
 
