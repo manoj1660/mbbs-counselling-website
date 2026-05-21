@@ -1,8 +1,8 @@
 export default function WhoWeAre() {
   const stats = [
-    { label: "Students Placed", value: "500+", icon: "🎓" },
-    { label: "Partner Universities", value: "50+", icon: "🏛️" },
-    { label: "Years of Expertise", value: "10+", icon: "⭐" },
+    { label: "Students Placed", value: "5000+", icon: "🎓" },
+    { label: "Partner Universities", value: "750+", icon: "🏛️" },
+    { label: "Years of Expertise", value: "15+", icon: "⭐" },
     { label: "Visa Success Rate", value: "100%", icon: "✈️" },
   ];
 

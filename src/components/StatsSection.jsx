@@ -76,17 +76,17 @@ export default function StatsSection() {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <StatCounter
-            end={5000}
+            end={15000}
             label="Students Counselled"
             icon={Users}
           />
           <StatCounter
-            end={10}
+            end={15}
             label="Countries Covered"
             icon={Globe}
           />
           <StatCounter
-            end={500}
+            end={7500}
             label="Partner Universities"
             icon={GraduationCap}
           />
