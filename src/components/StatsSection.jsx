@@ -86,7 +86,7 @@ export default function StatsSection() {
             icon={Globe}
           />
           <StatCounter
-            end={7500}
+            end={75}
             label="Partner Universities"
             icon={GraduationCap}
           />
