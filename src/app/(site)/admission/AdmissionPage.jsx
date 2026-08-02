@@ -67,6 +67,46 @@ const AdmissionPage = () => {
     }
   };
 
+  // JSON-LD Schema Data matching the page FAQs
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is an MBBS degree from abroad valid in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, provided you complete your MBBS from an NMC-approved university and qualify for the NEXT exam after returning."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the medium of instruction?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most NMC-approved universities abroad offer the entire MBBS course in English medium."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to qualify NEET?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, qualifying NEET is mandatory for all Indian students aspiring to study MBBS abroad."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the estimated budget?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The complete 6-year course including hostel generally ranges from INR 15 Lakhs to 35 Lakhs."
+        }
+      }
+    ]
+  };
+
   // --- FORCED STYLE FOR VISIBILITY (SEO & UX) ---
   const inputStyle = "w-full pl-12 pr-4 py-4 bg-white text-[#0f172a] border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium placeholder:text-slate-400";
 
@@ -92,6 +132,12 @@ const AdmissionPage = () => {
 
   return (
     <div className="bg-gray-50/50 min-h-screen">
+      {/* Dynamic FAQ Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 py-16 sm:py-24 text-center">

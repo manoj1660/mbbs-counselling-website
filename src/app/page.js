@@ -2,7 +2,6 @@ import StatsSection from "@/components/StatsSection";
 import HeroSection from "../components/HeroSection";
 import WhyStudyAbroad from "@/components/WhyStudyAbroad";
 import WhoWeAreSection from "@/components/WhoWeAreSection";
-// import PartnerSection from "@/components/PartnerSection";
 import PartnerSection from "@/components/PartnerSection";
 import Navbar from "@/components/Navbar";
 import HomePageTopUniversity from "@/components/HomePageTopUniversity";
@@ -10,19 +9,6 @@ import Footer from "@/components/Footer";
 import connectDB from "@/lib/db";
 import NoticeBar from "@/components/NoticeBar";
 import PageSetting from "@/models/PageSetting";
-// app/page.js
-//export async function generateMetadata() {
-  //await connectDB();
-  
-  // Hum database se wahi ID maang rahe hain jo humne Admin mein set ki thi
-  //const data = await PageSetting.findOne({ pageName: "home-main" }).lean();
-
-  //return {
-    //title: data?.seo?.metaTitle || "MBBS abroad - Your Gateway to Global Medical Education",
-    //description: data?.seo?.metaDescription || "MBBS Study Abroad is your trusted partner for direct admissions and transparent guidance...",
- // };
-//}
-// src/app/page.js
 
 export async function generateMetadata() {
   await connectDB();
@@ -41,7 +27,7 @@ export async function generateMetadata() {
       siteName: "MBBS Study Abroad",
       images: [
         {
-          url: "/og-image.jpg", // Make sure to add an image in public folder
+          url: "/og-image.jpg",
           width: 1200,
           height: 630,
         },
@@ -50,12 +36,30 @@ export async function generateMetadata() {
     },
   };
 }
-export default function Home() {
-  // Controller logic
 
+export default function Home() {
+  // Organization Schema for Homepage SEO
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MBBS Study Abroad",
+    "url": "https://www.mbbsstudyabroad.com",
+    "logo": "https://www.mbbsstudyabroad.com/logo.png",
+    "description": "Trusted medical education consultancy offering direct admission and counseling for MBBS abroad in NMC-approved universities.",
+    "sameAs": [
+      "https://www.facebook.com/mbbsstudyabroad",
+      "https://www.instagram.com/mbbsstudyabroad"
+    ]
+  };
 
   return (
     <main>
+      {/* Organization JSON-LD Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+
       <header className="sticky top-0 z-50"> 
         <NoticeBar />
         <Navbar />

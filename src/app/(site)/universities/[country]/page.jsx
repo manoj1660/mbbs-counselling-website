@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import connectDB from "@/lib/db";
 import CountryDetail from "@/models/CountryDetail";
 import University from "@/models/University";
@@ -10,40 +10,49 @@ export async function generateMetadata({ params }) {
   await connectDB();
   
   const data = await CountryDetail.findOne({ slug: slugLower }).lean();
-  if (!data) return { title: `Study MBBS in ${country} | 2026 Admissions` };
+  if (!data) {
+    return { 
+      title: `Study MBBS in ${country} | Admissions`,
+      alternates: {
+        canonical: `/universities/${slugLower}`,
+      },
+    };
+  }
 
   return {
     title: data.seo?.metaTitle || `${data.title} | Study MBBS Abroad 2026`,
     description: data.seo?.metaDescription || data.description?.substring(0, 160),
-    // ... baaki metadata same rahega
+    alternates: {
+      canonical: `/universities/${slugLower}`,
+    },
   };
 }
 
 export default async function CountryDetailPage({ params }) {
   const { country: countrySlug } = await params;
-  const slugLower = countrySlug.toLowerCase(); // Ye "russia" hai
+  const slugLower = countrySlug.toLowerCase();
   
   await connectDB();
 
-  // 1. Desh ki details nikalne ke liye slug hi use hoga (Ye bilkul sahi hai)
+  // 1. Fetch country details
   const countryDetails = await CountryDetail.findOne({ slug: slugLower }).lean();
 
-  // 2. Universities dhoondne ke liye hum 'country' field ka use kar rahe hain
-  // Kyunki DB mein university ke andar uska desh 'country' field mein "russia" likha hoga
+  // 2. Fetch universities for this country (case-insensitive regex match)
   const countryUnis = await University.find({ 
     country: { $regex: new RegExp(`^${slugLower}$`, "i") } 
   }).lean();
 
- 
   if (!countryDetails) {
     return <div className="p-20 text-center font-bold text-slate-400">Country Not Found</div>;
   }
 
   return (
-    <CountryContent 
-      details={JSON.parse(JSON.stringify(countryDetails))} 
-      countryUnis={JSON.parse(JSON.stringify(countryUnis))} 
-      countrySlug={countrySlug} 
-    />
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center font-bold text-slate-400">Loading universities...</div>}>
+      <CountryContent 
+        details={JSON.parse(JSON.stringify(countryDetails))} 
+        countryUnis={JSON.parse(JSON.stringify(countryUnis))} 
+        countrySlug={countrySlug} 
+      />
+    </Suspense>
   );
 }

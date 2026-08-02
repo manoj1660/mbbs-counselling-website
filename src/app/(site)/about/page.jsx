@@ -12,6 +12,9 @@ export async function generateMetadata() {
     description:
       data?.seo?.metaDescription ||
       "We provide transparent guidance for MBBS abroad with full support from admission to graduation.",
+    alternates: {
+      canonical: "/about",
+    },
   };
 }
 

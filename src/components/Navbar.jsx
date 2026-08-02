@@ -2,12 +2,38 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, User, LogOut, LayoutDashboard, ChevronRight } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  Phone, 
+  LogOut, 
+  LayoutDashboard, 
+  ChevronRight, 
+  ChevronDown, 
+  Globe 
+} from "lucide-react";
 
 export default function ResponsiveNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
+  const [isMobileDestinationsOpen, setIsMobileDestinationsOpen] = useState(false);
   const [user, setUser] = useState(null);
+
+  // All 11 destination countries
+  const countries = [
+    { name: "Russia", href: "/universities/russia" },
+    { name: "Georgia", href: "/universities/georgia" },
+    { name: "Kazakhstan", href: "/universities/kazakhstan" },
+    { name: "Uzbekistan", href: "/universities/uzbekistan" },
+    { name: "Philippines", href: "/universities/philippines" },
+    { name: "Kyrgyzstan", href: "/universities/kyrgyzstan" },
+    { name: "Italy", href: "/universities/italy" },
+    { name: "Vietnam", href: "/universities/vietnam" },
+    { name: "Nepal", href: "/universities/nepal" },
+    { name: "Poland", href: "/universities/poland" },
+    { name: "China", href: "/universities/china" },
+  ];
 
   // Scroll effect for shadow and height
   useEffect(() => {
@@ -36,13 +62,6 @@ export default function ResponsiveNavbar() {
     window.location.reload();
   };
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Universities", href: "/universities" },
-    { name: "Admission", href: "/admission" },
-    { name: "About", href: "/about" },
-  ];
-
   return (
     <nav
       className={`fixed w-full z-[100] transition-all duration-300 bg-white ${
@@ -62,15 +81,73 @@ export default function ResponsiveNavbar() {
 
         {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name}
-              href={link.href} 
-              className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+          <Link 
+            href="/" 
+            className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            Home
+          </Link>
+
+          {/* DESTINATIONS DROPDOWN (DESKTOP) */}
+          <div 
+            className="relative py-2"
+            onMouseEnter={() => setIsDestinationsOpen(true)}
+            onMouseLeave={() => setIsDestinationsOpen(false)}
+          >
+            <button 
+              className="flex items-center gap-1 text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors py-1"
+              aria-expanded={isDestinationsOpen}
             >
-              {link.name}
-            </Link>
-          ))}
+              Destinations
+              <ChevronDown 
+                size={16} 
+                className={`transition-transform duration-200 ${isDestinationsOpen ? "rotate-180 text-blue-600" : "text-gray-400"}`} 
+              />
+            </button>
+
+            {/* DROPDOWN MENU */}
+            {isDestinationsOpen && (
+              <div className="absolute top-full -left-4 w-72 bg-white border border-gray-100 rounded-2xl shadow-xl p-3 grid grid-cols-1 gap-1 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-gray-400 border-b border-gray-50 mb-1 flex items-center gap-1.5">
+                  <Globe size={13} className="text-blue-600" />
+                  Popular MBBS Destinations
+                </div>
+                <div className="max-h-[360px] overflow-y-auto pr-1 space-y-0.5">
+                  {countries.map((country) => (
+                    <Link
+                      key={country.name}
+                      href={country.href}
+                      className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-blue-50/60 text-gray-700 hover:text-blue-600 font-medium text-sm transition-all group"
+                    >
+                      <span>MBBS in {country.name}</span>
+                      <ChevronRight size={14} className="text-gray-300 group-hover:text-blue-600 transition-colors" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link 
+            href="/universities" 
+            className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            Universities
+          </Link>
+
+          <Link 
+            href="/admission" 
+            className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            Admission
+          </Link>
+
+          <Link 
+            href="/about" 
+            className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
+          >
+            About
+          </Link>
         </div>
 
         {/* ACTIONS */}
@@ -123,54 +200,105 @@ export default function ResponsiveNavbar() {
           <button
             className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* MOBILE MENU - IMPROVED UI */}
+      {/* MOBILE MENU */}
       <div
-        className={`lg:hidden fixed inset-0 top-[60px] bg-white z-[90] transition-all duration-300 ease-in-out ${
+        className={`lg:hidden fixed inset-0 top-[60px] bg-white z-[90] transition-all duration-300 ease-in-out overflow-y-auto ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-x-full"
         }`}
       >
-        <div className="p-6 flex flex-col h-full bg-white">
-          <div className="space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-between p-4 text-xl font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50"
-              >
-                {link.name} <ChevronRight size={20} className="text-gray-400" />
-              </Link>
-            ))}
-          </div>
+        <div className="p-6 flex flex-col min-h-[calc(100vh-60px)] bg-white">
+          <div className="space-y-2">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3.5 text-lg font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50 rounded-xl"
+            >
+              Home <ChevronRight size={18} className="text-gray-400" />
+            </Link>
 
-          <div className="mt-auto pb-10 space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-2xl mb-4">
-              <Phone size={20} className="text-blue-600" />
-              <span className="font-bold text-blue-900">+91 9818187817</span>
+            {/* MOBILE DESTINATIONS ACCORDION */}
+            <div className="border-b border-gray-50">
+              <button
+                onClick={() => setIsMobileDestinationsOpen(!isMobileDestinationsOpen)}
+                className="flex items-center justify-between w-full p-3.5 text-lg font-bold text-gray-800 active:bg-gray-50 rounded-xl"
+              >
+                <span>Destinations</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`text-gray-400 transition-transform duration-200 ${isMobileDestinationsOpen ? "rotate-180 text-blue-600" : ""}`} 
+                />
+              </button>
+
+              {isMobileDestinationsOpen && (
+                <div className="pl-4 pr-2 pb-3 space-y-1 bg-slate-50/60 rounded-xl my-1 py-2">
+                  {countries.map((country) => (
+                    <Link
+                      key={country.name}
+                      href={country.href}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setIsMobileDestinationsOpen(false);
+                      }}
+                      className="flex items-center justify-between p-2.5 text-sm font-semibold text-gray-700 hover:text-blue-600 active:bg-blue-50 rounded-lg"
+                    >
+                      <span>MBBS in {country.name}</span>
+                      <ChevronRight size={14} className="text-gray-400" />
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
+            <Link
+              href="/universities"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3.5 text-lg font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50 rounded-xl"
+            >
+              Universities <ChevronRight size={18} className="text-gray-400" />
+            </Link>
+
+            <Link
+              href="/admission"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3.5 text-lg font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50 rounded-xl"
+            >
+              Admission <ChevronRight size={18} className="text-gray-400" />
+            </Link>
+
+            <Link
+              href="/about"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between p-3.5 text-lg font-bold text-gray-800 border-b border-gray-50 active:bg-gray-50 rounded-xl"
+            >
+              About <ChevronRight size={18} className="text-gray-400" />
+            </Link>
+          </div>
+
+          <div className="mt-8 pb-10 space-y-4">
+            <a 
+              href="tel:+919818187817"
+              className="flex items-center gap-3 p-4 bg-blue-50 rounded-2xl mb-4 text-blue-900 font-bold"
+            >
+              <Phone size={20} className="text-blue-600" />
+              <span>+91 9818187817</span>
+            </a>
+
             {!user ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-3">
                 <Link 
                   href="/login" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-4 text-center font-bold text-gray-700 bg-gray-100 rounded-xl"
+                  className="py-3.5 text-center font-bold text-gray-700 bg-gray-100 rounded-xl"
                 >
                   Login
                 </Link>
-                {/* <Link 
-                  href="/register" 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-4 text-center font-bold text-white bg-black rounded-xl"
-                >
-                  Register
-                </Link> */}
               </div>
             ) : (
               <div className="space-y-3">
@@ -178,14 +306,14 @@ export default function ResponsiveNavbar() {
                   <Link 
                     href="/admin" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 py-4 w-full text-center font-bold text-white bg-blue-600 rounded-xl"
+                    className="flex items-center justify-center gap-2 py-3.5 w-full text-center font-bold text-white bg-blue-600 rounded-xl"
                   >
                     <LayoutDashboard size={20} /> Admin Panel
                   </Link>
                 )}
                 <button 
                   onClick={handleLogout}
-                  className="flex items-center justify-center gap-2 py-4 w-full text-center font-bold text-red-500 bg-red-50 rounded-xl"
+                  className="flex items-center justify-center gap-2 py-3.5 w-full text-center font-bold text-red-500 bg-red-50 rounded-xl"
                 >
                   <LogOut size={20} /> Logout
                 </button>
@@ -195,7 +323,7 @@ export default function ResponsiveNavbar() {
             <Link
               href="/apply"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-center text-lg shadow-xl shadow-blue-100"
+              className="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-center text-lg shadow-xl shadow-blue-100 hover:bg-blue-700 transition"
             >
               Free Counselling
             </Link>

@@ -1,15 +1,28 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { ChevronRight, MapPin, CheckCircle, Star, ArrowRight, GraduationCap } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { BudgetRoadmap } from "@/components/BudgetRoadmap";
 
 const ITEMS_PER_PAGE = 6;
 
 export default function CountryContent({ details, countryUnis, countrySlug }) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams();
+
+  // Read current page from URL (?page=2), default to 1
+  const pageFromUrl = Number(searchParams.get("page")) || 1;
+  const [currentPage, setCurrentPage] = useState(pageFromUrl);
 
   const totalPages = Math.ceil(countryUnis.length / ITEMS_PER_PAGE);
+
+  // Sync state whenever URL query params change
+  useEffect(() => {
+    const page = Number(searchParams.get("page")) || 1;
+    setCurrentPage(page);
+  }, [searchParams]);
+
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedUnis = countryUnis.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
@@ -134,16 +147,51 @@ export default function CountryContent({ details, countryUnis, countrySlug }) {
             ))}
           </div>
 
-          {/* Pagination */}
+          {/* Crawlable SEO Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-6 mt-20">
-              <button onClick={() => setCurrentPage(p => Math.max(1, p-1))} disabled={currentPage === 1} className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30">
-                <ArrowRight className="rotate-180" size={24} />
-              </button>
-              <span className="text-slate-400 font-black text-sm uppercase tracking-widest">Page {currentPage} of {totalPages}</span>
-              <button onClick={() => setCurrentPage(p => Math.min(totalPages, p+1))} disabled={currentPage === totalPages} className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white disabled:opacity-30">
-                <ArrowRight size={24} />
-              </button>
+              {/* Previous Page Link */}
+              {currentPage > 1 ? (
+                <Link
+                  href={`/universities/${countrySlug}?page=${currentPage - 1}`}
+                  className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
+                  aria-label="Previous Page"
+                >
+                  <ArrowRight className="rotate-180" size={24} />
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center opacity-30 cursor-not-allowed"
+                  aria-label="Previous Page Disabled"
+                >
+                  <ArrowRight className="rotate-180" size={24} />
+                </button>
+              )}
+
+              {/* Page Indicator */}
+              <span className="text-slate-400 font-black text-sm uppercase tracking-widest">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              {/* Next Page Link */}
+              {currentPage < totalPages ? (
+                <Link
+                  href={`/universities/${countrySlug}?page=${currentPage + 1}`}
+                  className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
+                  aria-label="Next Page"
+                >
+                  <ArrowRight size={24} />
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center opacity-30 cursor-not-allowed"
+                  aria-label="Next Page Disabled"
+                >
+                  <ArrowRight size={24} />
+                </button>
+              )}
             </div>
           )}
         </div>

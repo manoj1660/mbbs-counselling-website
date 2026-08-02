@@ -1,13 +1,28 @@
 import Link from "next/link";
 
 export default function Footer() {
+  const destinations = [
+    { name: "MBBS in Russia", href: "/universities/russia" },
+    { name: "MBBS in Georgia", href: "/universities/georgia" },
+    { name: "MBBS in Kazakhstan", href: "/universities/kazakhstan" },
+    { name: "MBBS in Uzbekistan", href: "/universities/uzbekistan" },
+    { name: "MBBS in Philippines", href: "/universities/philippines" },
+    { name: "MBBS in Kyrgyzstan", href: "/universities/kyrgyzstan" },
+    { name: "MBBS in Italy", href: "/universities/italy" },
+    { name: "MBBS in Vietnam", href: "/universities/vietnam" },
+    { name: "MBBS in Nepal", href: "/universities/nepal" },
+    { name: "MBBS in Poland", href: "/universities/poland" },
+    { name: "MBBS in China", href: "/universities/china" },
+  ];
+
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Top Section: Main Links */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
+          
           {/* Column 1: Brand Info */}
-          <div className="space-y-6">
+          <div className="md:col-span-4 space-y-6">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white text-xl">
                 M
@@ -16,95 +31,69 @@ export default function Footer() {
                 MBBS GLOBAL
               </span>
             </div>
-            <p className="text-sm leading-relaxed max-w-sm">
+            <p className="text-sm leading-relaxed max-w-sm text-slate-400">
               Empowering Indian students with global medical education. We
               provide transparent, end-to-end guidance for MBBS admissions
               worldwide.
             </p>
             {/* Main Contacts */}
             <div className="pt-2 space-y-2 text-sm text-slate-400">
-              <p className="flex items-center gap-2">📞 +91 9818187817</p>
-              <p className="flex items-center gap-2">✉️ info@unefly.com</p>
+              <p className="flex items-center gap-2 hover:text-white transition-colors">
+                📞 <a href="tel:+919818187817">+91 9818187817</a>
+              </p>
+              <p className="flex items-center gap-2 hover:text-white transition-colors">
+                ✉️ <a href="mailto:info@unefly.com">info@unefly.com</a>
+              </p>
             </div>
           </div>
 
-          {/* Column 2: Destinations */}
-          <div>
+          {/* Column 2: Destinations (2-Column Grid for All 11 Countries) */}
+          <div className="md:col-span-5">
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">
-              Destinations
+              Top Destinations
             </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link
-                  href="/universities/russia"
-                  className="hover:text-blue-400 transition"
-                >
-                  MBBS in Russia
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/universities/georgia"
-                  className="hover:text-blue-400 transition"
-                >
-                  MBBS in Georgia
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/universities/kazakhstan"
-                  className="hover:text-blue-400 transition"
-                >
-                  MBBS in Kazakhstan
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/universities/uzbekistan"
-                  className="hover:text-blue-400 transition"
-                >
-                  MBBS in Uzbekistan
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/universities/philippines"
-                  className="hover:text-blue-400 transition"
-                >
-                  MBBS in Philippines
-                </Link>
-              </li>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs text-slate-400">
+              {destinations.map((dest) => (
+                <li key={dest.href}>
+                  <Link
+                    href={dest.href}
+                    className="hover:text-blue-400 transition-colors block py-0.5"
+                  >
+                    {dest.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 3: Useful Links */}
-          <div>
+          <div className="md:col-span-3">
             <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">
               Useful Links
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-3 text-sm text-slate-400">
               <li>
-                <Link href="#" className="hover:text-blue-400 transition">
+                <Link href="/admission" className="hover:text-blue-400 transition-colors">
                   Admission Process
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition">
+                <Link href="#" className="hover:text-blue-400 transition-colors">
                   Eligibility Criteria
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition">
+                <Link href="#" className="hover:text-blue-400 transition-colors">
                   Visa Support
                 </Link>
               </li>
               <li>
-                <Link href="/apply" className="hover:text-blue-400 transition">
+                <Link href="/apply" className="hover:text-blue-400 transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition">
+                <Link href="#" className="hover:text-blue-400 transition-colors">
                   FAQs
                 </Link>
               </li>
@@ -112,17 +101,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Middle Section: Our Offices (Ab yeh clean grid me dikhega) */}
+        {/* Middle Section: Global & National Offices */}
         <div className="border-t border-slate-800/60 pt-10 mb-12">
           <h4 className="text-white font-bold mb-8 uppercase tracking-wider text-sm text-center md:text-left">
             Our Global & National Offices
           </h4>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-sm leading-relaxed">
-            {/* Delhi Rohini Block inside Footer.js */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 text-sm leading-relaxed">
+            {/* Delhi Rohini Block */}
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 flex flex-col justify-between hover:border-slate-700 transition">
               <div>
-                {/* Redirects directly to your new clean page */}
                 <Link
                   href="/northdelhi"
                   className="text-blue-400 font-bold mb-2 block hover:underline"
@@ -143,7 +131,7 @@ export default function Footer() {
             </div>
 
             {/* Delhi NCR */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Delhi NCR (Noida)</p>
               <p className="text-slate-400 text-xs">
                 8th Floor, NPX Building,
@@ -158,7 +146,7 @@ export default function Footer() {
             </div>
 
             {/* Kolkata */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Kolkata</p>
               <p className="text-slate-400 text-xs">
                 12/B Lake Range, 1st Floor,
@@ -173,7 +161,7 @@ export default function Footer() {
             </div>
 
             {/* Hyderabad */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Hyderabad</p>
               <p className="text-slate-400 text-xs">
                 311, Windsor Plaza,
@@ -185,7 +173,7 @@ export default function Footer() {
             </div>
 
             {/* Russia */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Russia</p>
               <p className="text-slate-400 text-xs">
                 Academia Militsinskikova Street,
@@ -198,7 +186,7 @@ export default function Footer() {
             </div>
 
             {/* Bangladesh */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Bangladesh</p>
               <p className="text-slate-400 text-xs">
                 68-69, Green Road,
@@ -213,7 +201,7 @@ export default function Footer() {
             </div>
 
             {/* Dubai */}
-            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
               <p className="text-blue-400 font-bold mb-2">Dubai</p>
               <p className="text-slate-400 text-xs">
                 #401 Bait Aseel Building,
@@ -227,16 +215,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <p>© 2026 MISSION Global LLC. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/" className="hover:text-white transition">
+            <Link href="/" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/" className="hover:text-white transition">
+            <Link href="/" className="hover:text-white transition-colors">
               Terms
             </Link>
-            <Link href="/" className="hover:text-white transition">
+            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
               Sitemap
             </Link>
           </div>

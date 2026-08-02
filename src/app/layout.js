@@ -13,14 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://www.mbbsstudyabroad.com"),
   title: "MBBS Study Abroad - Your Gateway to Global Medical Education",
   description: "MBBS Study Abroad is your trusted partner for direct admissions and transparent guidance...",
   icons: {
     icon: "/images/logo1.png", 
   },
-  alternates: {
-    canonical: "https://www.mbbsstudyabroad.com",
-  },
+  // alternates: {
+  //   canonical: "https://www.mbbsstudyabroad.com",
+  // },
   // 👇 Ye wala section add kar do Google Verification ke liye
   verification: {
     google: "pNedgnfHPevX6PeNE1m0c2FDHd8O51iDC4r1xXwRMEg",

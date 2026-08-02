@@ -9,12 +9,22 @@ import AllCountries from "@/components/university/AllCountries";
 export async function generateMetadata() {
   await connectDB();
   // Hum database se "universities-main" naam ka record dhoondhenge
-  const data = await PageSetting.findOne({ pageName: "universities-main" }).lean();
+  const data = await PageSetting.findOne({
+    pageName: "universities-main",
+  }).lean();
 
   return {
     title: data?.seo?.metaTitle || "All Universities | Study MBBS Abroad 2026",
-    description: data?.seo?.metaDescription || "Explore top medical universities worldwide.",
-    keywords: data?.seo?.keywords?.join(", ") || ["MBBS Universities", "Study Abroad"],
+    description:
+      data?.seo?.metaDescription ||
+      "Explore top medical universities worldwide.",
+    keywords: data?.seo?.keywords?.join(", ") || [
+      "MBBS Universities",
+      "Study Abroad",
+    ],
+    alternates: {
+      canonical: "/universities",
+    },
   };
 }
 
@@ -25,7 +35,7 @@ export default async function UniversitiesPage() {
   return (
     <main className="min-h-screen bg-white">
       <UniversityHeroText />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-12 space-y-20">
         <section>
           <TopCountries />

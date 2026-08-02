@@ -17,7 +17,7 @@ export const metadata = {
     "NEET qualified MBBS abroad"
   ],
   alternates: {
-    canonical: "https://www.mbbsstudyabroad.com/apply",
+    canonical: "/admission",
   },
 };
 

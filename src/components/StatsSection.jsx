@@ -4,14 +4,17 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Users, Globe, GraduationCap, Trophy } from 'lucide-react';
-
-function StatCounter({ end, label, icon: Icon, duration = 2 }) {
+export function StatCounter({ end, label, icon: Icon, duration = 2, suffix = "+" }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 });
-  const [count, setCount] = useState(0);
+  
+  // SEO Fix: Initial state ko 'end' set kiya hai taaki SSR/Crawlers ko direct real number mile
+  const [count, setCount] = useState(end);
 
   useEffect(() => {
+    // Jab element view me aaye, tab animation start karne ke liye pehle 0 se reset karo
     if (!inView) return;
 
+    setCount(0); // Viewport me aate hi visual counter 0 se animate start karega
     let start = 0;
     const totalFrames = duration * 60;
     const increment = end / totalFrames;
@@ -30,6 +33,7 @@ function StatCounter({ end, label, icon: Icon, duration = 2 }) {
     return () => clearInterval(counter);
   }, [inView, end, duration]);
 
+
   return (
     <motion.div
       ref={ref}
@@ -45,7 +49,7 @@ function StatCounter({ end, label, icon: Icon, duration = 2 }) {
       </div>
 
       <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
-        {count}+
+        {count}{suffix}
       </h3>
 
       <p className="mt-2 text-gray-600 text-sm md:text-base">{label}</p>

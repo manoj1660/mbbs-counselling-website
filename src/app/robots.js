@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: '/admin',
     },
-    sitemap: 'https://mbbsstudyabroad.com/sitemap.xml',
+    sitemap: 'https://www.mbbsstudyabroad.com/sitemap.xml',
   }
 }
