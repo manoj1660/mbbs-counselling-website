@@ -2,22 +2,24 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  Menu, 
-  X, 
-  Phone, 
-  LogOut, 
-  LayoutDashboard, 
-  ChevronRight, 
-  ChevronDown, 
-  Globe 
+import Image from "next/image";
+import {
+  Menu,
+  X,
+  Phone,
+  LogOut,
+  LayoutDashboard,
+  ChevronRight,
+  ChevronDown,
+  Globe,
 } from "lucide-react";
 
 export default function ResponsiveNavbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDestinationsOpen, setIsDestinationsOpen] = useState(false);
-  const [isMobileDestinationsOpen, setIsMobileDestinationsOpen] = useState(false);
+  const [isMobileDestinationsOpen, setIsMobileDestinationsOpen] =
+    useState(false);
   const [user, setUser] = useState(null);
 
   // All 11 destination countries
@@ -69,39 +71,43 @@ export default function ResponsiveNavbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        
         {/* LOGO */}
-        <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105">
-          <img 
-            src="/images/mbbsgloballogo.png" 
-            alt="MBBS Global Logo" 
+        <Link
+          href="/"
+          className="flex-shrink-0 transition-transform hover:scale-105"
+        >
+          <Image
+            src="/images/mbbsgloballogo.png"
+            alt="MBBS Global - Overseas Medical Education & Admission Counseling"
+            width={48}
+            height={48}
+            priority
             className="h-12 w-12 object-cover scale-150"
           />
         </Link>
-
         {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center space-x-8">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
           >
             Home
           </Link>
 
           {/* DESTINATIONS DROPDOWN (DESKTOP) */}
-          <div 
+          <div
             className="relative py-2"
             onMouseEnter={() => setIsDestinationsOpen(true)}
             onMouseLeave={() => setIsDestinationsOpen(false)}
           >
-            <button 
+            <button
               className="flex items-center gap-1 text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors py-1"
               aria-expanded={isDestinationsOpen}
             >
               Destinations
-              <ChevronDown 
-                size={16} 
-                className={`transition-transform duration-200 ${isDestinationsOpen ? "rotate-180 text-blue-600" : "text-gray-400"}`} 
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-200 ${isDestinationsOpen ? "rotate-180 text-blue-600" : "text-gray-400"}`}
               />
             </button>
 
@@ -120,7 +126,10 @@ export default function ResponsiveNavbar() {
                       className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-blue-50/60 text-gray-700 hover:text-blue-600 font-medium text-sm transition-all group"
                     >
                       <span>MBBS in {country.name}</span>
-                      <ChevronRight size={14} className="text-gray-300 group-hover:text-blue-600 transition-colors" />
+                      <ChevronRight
+                        size={14}
+                        className="text-gray-300 group-hover:text-blue-600 transition-colors"
+                      />
                     </Link>
                   ))}
                 </div>
@@ -128,22 +137,22 @@ export default function ResponsiveNavbar() {
             )}
           </div>
 
-          <Link 
-            href="/universities" 
+          <Link
+            href="/universities"
             className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
           >
             Universities
           </Link>
 
-          <Link 
-            href="/admission" 
+          <Link
+            href="/admission"
             className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
           >
             Admission
           </Link>
 
-          <Link 
-            href="/about" 
+          <Link
+            href="/about"
             className="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors"
           >
             About
@@ -152,8 +161,8 @@ export default function ResponsiveNavbar() {
 
         {/* ACTIONS */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <a 
-            href="tel:+919818187817" 
+          <a
+            href="tel:+919818187817"
             className="hidden md:flex items-center gap-2 text-xs font-bold text-blue-700 bg-blue-50 px-4 py-2 rounded-full border border-blue-100 transition-all hover:bg-blue-100"
           >
             <Phone size={14} /> +91 9818187817
@@ -163,11 +172,14 @@ export default function ResponsiveNavbar() {
           <div className="hidden lg:flex items-center gap-3 ml-2 border-l pl-4 border-gray-200">
             {!user ? (
               <>
-                <Link href="/login" className="text-sm font-bold text-gray-600 hover:text-blue-600 transition">
+                <Link
+                  href="/login"
+                  className="text-sm font-bold text-gray-600 hover:text-blue-600 transition"
+                >
                   Login
                 </Link>
-                <Link 
-                  href="/apply" 
+                <Link
+                  href="/apply"
                   className="bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-full hover:bg-blue-700 transition shadow-lg shadow-blue-100"
                 >
                   Apply Now
@@ -176,18 +188,21 @@ export default function ResponsiveNavbar() {
             ) : (
               <div className="flex items-center gap-4">
                 {user.role === "admin" && (
-                  <Link href="/admin" className="p-2 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition">
+                  <Link
+                    href="/admin"
+                    className="p-2 bg-gray-50 rounded-full text-blue-600 hover:bg-blue-50 transition"
+                  >
                     <LayoutDashboard size={20} />
                   </Link>
                 )}
-                <button 
-                  onClick={handleLogout} 
+                <button
+                  onClick={handleLogout}
                   className="p-2 bg-red-50 rounded-full text-red-500 hover:bg-red-100 transition"
                 >
                   <LogOut size={20} />
                 </button>
-                <Link 
-                  href="/apply" 
+                <Link
+                  href="/apply"
                   className="bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-full"
                 >
                   Apply Now
@@ -210,7 +225,9 @@ export default function ResponsiveNavbar() {
       {/* MOBILE MENU */}
       <div
         className={`lg:hidden fixed inset-0 top-[60px] bg-white z-[90] transition-all duration-300 ease-in-out overflow-y-auto ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none translate-x-full"
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none translate-x-full"
         }`}
       >
         <div className="p-6 flex flex-col min-h-[calc(100vh-60px)] bg-white">
@@ -226,13 +243,15 @@ export default function ResponsiveNavbar() {
             {/* MOBILE DESTINATIONS ACCORDION */}
             <div className="border-b border-gray-50">
               <button
-                onClick={() => setIsMobileDestinationsOpen(!isMobileDestinationsOpen)}
+                onClick={() =>
+                  setIsMobileDestinationsOpen(!isMobileDestinationsOpen)
+                }
                 className="flex items-center justify-between w-full p-3.5 text-lg font-bold text-gray-800 active:bg-gray-50 rounded-xl"
               >
                 <span>Destinations</span>
-                <ChevronDown 
-                  size={18} 
-                  className={`text-gray-400 transition-transform duration-200 ${isMobileDestinationsOpen ? "rotate-180 text-blue-600" : ""}`} 
+                <ChevronDown
+                  size={18}
+                  className={`text-gray-400 transition-transform duration-200 ${isMobileDestinationsOpen ? "rotate-180 text-blue-600" : ""}`}
                 />
               </button>
 
@@ -282,7 +301,7 @@ export default function ResponsiveNavbar() {
           </div>
 
           <div className="mt-8 pb-10 space-y-4">
-            <a 
+            <a
               href="tel:+919818187817"
               className="flex items-center gap-3 p-4 bg-blue-50 rounded-2xl mb-4 text-blue-900 font-bold"
             >
@@ -292,8 +311,8 @@ export default function ResponsiveNavbar() {
 
             {!user ? (
               <div className="grid grid-cols-1 gap-3">
-                <Link 
-                  href="/login" 
+                <Link
+                  href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="py-3.5 text-center font-bold text-gray-700 bg-gray-100 rounded-xl"
                 >
@@ -303,15 +322,15 @@ export default function ResponsiveNavbar() {
             ) : (
               <div className="space-y-3">
                 {user.role === "admin" && (
-                  <Link 
-                    href="/admin" 
+                  <Link
+                    href="/admin"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center justify-center gap-2 py-3.5 w-full text-center font-bold text-white bg-blue-600 rounded-xl"
                   >
                     <LayoutDashboard size={20} /> Admin Panel
                   </Link>
                 )}
-                <button 
+                <button
                   onClick={handleLogout}
                   className="flex items-center justify-center gap-2 py-3.5 w-full text-center font-bold text-red-500 bg-red-50 rounded-xl"
                 >
@@ -319,7 +338,7 @@ export default function ResponsiveNavbar() {
                 </button>
               </div>
             )}
-            
+
             <Link
               href="/apply"
               onClick={() => setIsMobileMenuOpen(false)}

@@ -80,7 +80,7 @@ export default function StatsSection() {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <StatCounter
-            end={15000}
+            end={5000}
             label="Students Counselled"
             icon={Users}
           />

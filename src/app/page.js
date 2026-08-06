@@ -15,14 +15,17 @@ export async function generateMetadata() {
   const data = await PageSetting.findOne({ pageName: "home-main" }).lean();
 
   return {
-    title: data?.seo?.metaTitle || "MBBS Abroad 2026 | Top Medical Universities for Indian Students",
-    description: data?.seo?.metaDescription || "Get direct admission in low-cost, NMC-approved medical universities abroad. Expert guidance for MBBS in Russia, Uzbekistan, Kazakhstan, and more.",
+    title: data?.seo?.metaTitle || "MBBS Global 2026 | Top Medical Universities for Indian Students",
+    description: 
+      data?.seo?.metaDescription || 
+      "Apply for MBBS abroad in NMC & WHO-approved low-cost medical universities. Get expert counseling, 100% admission guidance, and complete visa support today.",
     alternates: {
       canonical: "https://www.mbbsstudyabroad.com/",
     },
     openGraph: {
       title: "MBBS Study Abroad - Your Gateway to Global Medical Education",
-      description: "Apply for MBBS abroad with transparent guidance and direct admission.",
+      description: 
+        "Apply for MBBS abroad in NMC & WHO-approved low-cost medical universities with expert counseling and complete admission support.",
       url: "https://www.mbbsstudyabroad.com/",
       siteName: "MBBS Study Abroad",
       images: [

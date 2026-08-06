@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   metadataBase: new URL("https://www.mbbsstudyabroad.com"),
-  title: "MBBS Study Abroad - Your Gateway to Global Medical Education",
-  description: "MBBS Study Abroad is your trusted partner for direct admissions and transparent guidance...",
+  title: "MBBS Global - Your Gateway to Global Medical Education",
+  description: "Official portal for MBBS Global. Explore top NMC & WHO recognized medical universities in Russia, Uzbekistan, Kazakhstan, and more.",
   icons: {
     icon: "/images/logo1.png", 
   },

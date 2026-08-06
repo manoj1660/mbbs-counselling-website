@@ -1,20 +1,21 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import connectDB from "@/lib/db";
 import University from "@/models/University";
-import { unstable_noStore as noStore } from "next/cache"; // 🔥 important
+import { unstable_noStore as noStore } from "next/cache";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function HomePageTopUniversity() {
-  noStore(); // 🚀 disables caching completely
+  noStore(); // disables caching completely
 
   await connectDB();
 
-  // ✅ Only Russia + Featured + latest 3
+  // Only Russia + Featured + latest 3
   const unis = await University.find({
     isFeatured: true,
     country: { $regex: /^russia$/i }, // case-insensitive
@@ -22,8 +23,6 @@ export default async function HomePageTopUniversity() {
     .sort({ createdAt: -1 })
     .limit(3)
     .lean();
-
-  
 
   if (!unis || unis.length === 0) return null;
 
@@ -47,12 +46,14 @@ export default async function HomePageTopUniversity() {
               className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-blue-300/30 transition-all duration-300"
             >
               <div className="h-60 overflow-hidden relative">
-                <img
-                  src={uni.image}
+                <Image
+                  src={uni.image || "/images/placeholder.jpg"}
                   alt={uni.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute top-5 left-5">
+                <div className="absolute top-5 left-5 z-10">
                   <span className="px-4 py-2 bg-white/90 backdrop-blur-md text-[10px] font-black text-blue-700 rounded-xl uppercase">
                     {uni.ranking || "Top Rated"}
                   </span>

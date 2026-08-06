@@ -78,12 +78,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition-colors">
+                <Link href="/admission" className="hover:text-blue-400 transition-colors">
                   Eligibility Criteria
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition-colors">
+                <Link href="/admission" className="hover:text-blue-400 transition-colors">
                   Visa Support
                 </Link>
               </li>
@@ -93,7 +93,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-blue-400 transition-colors">
+                <Link href="/admission" className="hover:text-blue-400 transition-colors">
                   FAQs
                 </Link>
               </li>
@@ -216,12 +216,12 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
-          <p>© 2026 MISSION Global LLC. All rights reserved.</p>
+          <p>© 2026 MBBS Global. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
               Terms
             </Link>
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">

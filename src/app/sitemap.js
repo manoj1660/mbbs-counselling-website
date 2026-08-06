@@ -5,8 +5,16 @@ import University from "@/models/University";
 export default async function sitemap() {
   const baseUrl = "https://www.mbbsstudyabroad.com";
 
-  // 1. Static Pages
-  const staticPages = ["", "/about", "/admission", "/apply"].map((route) => ({
+  // 1. Static Pages (Added /northdelhi, policy pages | No /login)
+  const staticPages = [
+    "",
+    "/about",
+    "/admission",
+    "/apply",
+    "/northdelhi",
+    "/privacy-policy",
+    "/terms-and-conditions",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
   }));

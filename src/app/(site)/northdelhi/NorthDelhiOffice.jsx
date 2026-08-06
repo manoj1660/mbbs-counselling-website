@@ -3,11 +3,10 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Mail, Phone, MessageSquare, Send, CheckCircle, Loader2, MapPin, Clock, Globe } from "lucide-react";
 
-export default function NorthDelhiOffice() {
+export default function NorthDelhiClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // --- FORM SUBMIT LOGIC (Unchanged API Integration) ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -30,7 +29,6 @@ export default function NorthDelhiOffice() {
     }
   };
 
-  // Shared classes for form fields (Refined for crisp Light Theme look)
   const inputClass = "w-full pl-12 pr-4 py-4 bg-slate-50 text-slate-900 placeholder:text-slate-400 border border-slate-200/80 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 font-medium text-sm transition-all";
 
   return (
@@ -57,10 +55,8 @@ export default function NorthDelhiOffice() {
         {/* Main Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           
-          {/* LEFT COLUMN: Premium Contact & Location Details */}
+          {/* LEFT COLUMN: Contact & Location Details */}
           <div className="lg:col-span-1 space-y-6">
-            
-            {/* Branch Info Card */}
             <div className="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-md shadow-slate-100 space-y-6">
               <h2 className="text-xl font-bold text-slate-900 tracking-wide border-b border-slate-100 pb-4 flex items-center gap-2">
                 <MapPin size={20} className="text-blue-600" /> Branch Location Details
@@ -98,24 +94,9 @@ export default function NorthDelhiOffice() {
                 <span className="text-slate-900 font-bold">10:00 AM - 6:30 PM (Mon - Sat)</span>
               </div>
             </div>
-
-            {/* Google Map Box */}
-            <div className="bg-white border border-slate-200/60 rounded-[2rem] h-[250px] shadow-md shadow-slate-100 flex flex-col justify-center items-center text-center p-6 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-70"></div>
-              <div className="relative z-10">
-                <div className="w-12 h-12 bg-blue-50 border border-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl font-bold">
-                  📍
-                </div>
-                <h4 className="text-slate-900 font-bold mb-1">Interactive Maps Location</h4>
-                <p className="text-slate-500 text-xs max-w-xs mx-auto leading-relaxed font-medium">
-                  Embed map iframe container seamlessly inside this layout box upon receiving production tokens.
-                </p>
-              </div>
-            </div>
-
           </div>
 
-          {/* RIGHT COLUMN: Integrated Embedded Inquiry Form */}
+          {/* RIGHT COLUMN: Inquiry Form */}
           <div className="lg:col-span-2">
             <div className="w-full bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 p-8 md:p-10 border border-slate-200/40">
               {isSuccess ? (
@@ -136,25 +117,21 @@ export default function NorthDelhiOffice() {
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name Input */}
                     <div className="relative group">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                       <input type="text" required name="fullName" placeholder="Full Name *" className={inputClass} />
                     </div>
 
-                    {/* Email Input */}
                     <div className="relative group">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                       <input type="email" required name="email" placeholder="Email Address *" className={inputClass} />
                     </div>
 
-                    {/* Phone Input */}
                     <div className="relative group">
                       <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                       <input type="tel" required name="phone" placeholder="Phone Number *" className={inputClass} />
                     </div>
 
-                    {/* Message Textarea */}
                     <div className="relative group">
                       <MessageSquare className="absolute left-4 top-4 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                       <textarea 
@@ -164,7 +141,6 @@ export default function NorthDelhiOffice() {
                       ></textarea>
                     </div>
 
-                    {/* Submit Button */}
                     <button 
                       type="submit" 
                       disabled={isSubmitting}

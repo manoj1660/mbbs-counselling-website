@@ -1,11 +1,11 @@
-// src/app/north-delhi-office/page.jsx  <-- Clean Server Component
+// src/app/northdelhi/page.jsx  <-- Clean Server Component
 import NorthDelhiOffice from "./NorthDelhiOffice"; // Import path check kar lein
 
 export const metadata = {
   title: "MBBS Global North Delhi Office | Rohini Regional Center",
   description: "Visit our North Delhi regional office in Rohini Sector-9 for expert MBBS abroad counselling and admissions assistance.",
   alternates: {
-    canonical: "/north-delhi-office", // Clean dynamic relative canonical URL
+    canonical: "/northdelhi", // Clean dynamic relative canonical URL
   },
 };
 

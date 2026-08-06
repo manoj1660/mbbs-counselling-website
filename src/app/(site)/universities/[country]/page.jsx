@@ -9,21 +9,64 @@ export async function generateMetadata({ params }) {
   const slugLower = country.toLowerCase();
   await connectDB();
   
+  const baseUrl = "https://www.mbbsstudyabroad.com";
+  const canonicalUrl = `${baseUrl}/universities/${slugLower}`;
+  // Aapke images folder ki exact PNG image
+  const defaultOgImage = `${baseUrl}/images/hero-video.png`;
+
   const data = await CountryDetail.findOne({ slug: slugLower }).lean();
+
   if (!data) {
+    const fallbackTitle = `Study MBBS in ${country.charAt(0).toUpperCase() + country.slice(1)} | Admission 2026`;
+    const fallbackDesc = `Explore top NMC approved medical universities in ${country}. Get details on fee structure, eligibility, and direct admission for 2026.`;
+
     return { 
-      title: `Study MBBS in ${country} | Admissions`,
+      title: fallbackTitle,
+      description: fallbackDesc,
       alternates: {
-        canonical: `/universities/${slugLower}`,
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: fallbackTitle,
+        description: fallbackDesc,
+        url: canonicalUrl,
+        siteName: "MBBS Study Abroad",
+        images: [
+          {
+            url: defaultOgImage,
+            width: 1200,
+            height: 630,
+            alt: fallbackTitle,
+          },
+        ],
+        type: "article",
       },
     };
   }
 
+  const title = data.seo?.metaTitle || `${data.title} | Study MBBS Abroad 2026`;
+  const description = data.seo?.metaDescription || data.description?.substring(0, 160);
+
   return {
-    title: data.seo?.metaTitle || `${data.title} | Study MBBS Abroad 2026`,
-    description: data.seo?.metaDescription || data.description?.substring(0, 160),
+    title,
+    description,
     alternates: {
-      canonical: `/universities/${slugLower}`,
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "MBBS Study Abroad",
+      images: [
+        {
+          url: defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "article",
     },
   };
 }

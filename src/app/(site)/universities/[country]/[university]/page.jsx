@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPin,
   CheckCircle2,
@@ -24,28 +25,70 @@ export async function generateMetadata({ params }) {
   const { country, university } = await params;
   await connectDB();
   
+  const baseUrl = "https://www.mbbsstudyabroad.com";
+  const defaultOgImage = `${baseUrl}/images/hero-video.png`;
+
+  // Generate exact path matching the page structure
+  const relativePath = country 
+    ? `/universities/${country}/${university}` 
+    : `/universities/${university}`;
+  
+  const canonicalUrl = `${baseUrl}${relativePath}`;
+
   const data = await UniversityDetail.findOne({ slug: university }).lean();
 
   if (!data) {
+    const fallbackTitle = "University Not Found | MBBS Study Abroad";
+    const fallbackDesc = "Explore top medical universities abroad with NMC & WHO recognition.";
+
     return { 
-      title: "University Not Found",
+      title: fallbackTitle,
+      description: fallbackDesc,
       alternates: {
-        canonical: country ? `/universities/${country}/${university}` : `/universities/${university}`,
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: fallbackTitle,
+        description: fallbackDesc,
+        url: canonicalUrl,
+        siteName: "MBBS Study Abroad",
+        images: [
+          {
+            url: defaultOgImage,
+            width: 1200,
+            height: 630,
+            alt: fallbackTitle,
+          },
+        ],
+        type: "article",
       },
     };
   }
 
-  // Generate exact path matching the page structure
-  const canonicalPath = country 
-    ? `/universities/${country}/${university}` 
-    : `/universities/${university}`;
+  const title = data.seo?.metaTitle || `${data.name} | MBBS Abroad 2026`;
+  const description = data.seo?.metaDescription || data.intro?.substring(0, 160);
 
   return {
-    title: data.seo?.metaTitle || `${data.name} | MBBS Abroad`,
-    description: data.seo?.metaDescription || data.intro?.substring(0, 160),
+    title,
+    description,
     keywords: data.seo?.keywords?.join(", "),
     alternates: {
-      canonical: canonicalPath,
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "MBBS Study Abroad",
+      images: [
+        {
+          url: defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      type: "article",
     },
   };
 }
@@ -114,23 +157,34 @@ export default async function UniversityDetailPage({ params }) {
 
       {/* --- PREMIUM HERO SECTION --- */}
       <section className="relative h-[550px] w-full overflow-hidden bg-slate-950">
-        <div
-          className="absolute inset-0 z-0 scale-110 blur-3xl opacity-30"
-          style={{
-            backgroundImage: `url(${data.image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div
-          className="absolute inset-0 z-10 hidden lg:block"
-          style={{
-            backgroundImage: `url(${data.image})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right center",
-          }}
-        />
+        {/* Background Blurred Image (Optimized Next Image) */}
+        {data.image && (
+          <div className="absolute inset-0 z-0 scale-110 blur-3xl opacity-30">
+            <Image
+              src={data.image}
+              alt={`${data.name} Background`}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        )}
+
+        {/* Foreground Campus Image (Optimized Next Image) */}
+        {data.image && (
+          <div className="absolute inset-0 z-10 hidden lg:block">
+            <Image
+              src={data.image}
+              alt={`${data.name} Campus View`}
+              fill
+              priority
+              sizes="100vw"
+              className="object-contain object-right"
+            />
+          </div>
+        )}
+
         <div className="absolute inset-0 z-15 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
 
         <div className="relative z-20 h-full max-w-7xl mx-auto px-6 flex items-center">
