@@ -20,7 +20,6 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Top Section: Main Links */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
-          
           {/* Column 1: Brand Info */}
           <div className="md:col-span-4 space-y-6">
             <div className="flex items-center gap-2">
@@ -73,27 +72,42 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-slate-400">
               <li>
-                <Link href="/admission" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/admission"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Admission Process
                 </Link>
               </li>
               <li>
-                <Link href="/admission" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/admission"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Eligibility Criteria
                 </Link>
               </li>
               <li>
-                <Link href="/admission" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/admission"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Visa Support
                 </Link>
               </li>
               <li>
-                <Link href="/apply" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/apply"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/admission" className="hover:text-blue-400 transition-colors">
+                <Link
+                  href="/admission"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   FAQs
                 </Link>
               </li>
@@ -211,6 +225,24 @@ export default function Footer() {
                 Dubai, UAE
               </p>
             </div>
+
+            {/* Latur */}
+            <div className="bg-slate-800/40 p-4 rounded-xl border border-slate-800/80 hover:border-slate-700 transition">
+              <p className="text-blue-400 font-bold mb-2">Latur</p>
+              <p className="text-slate-400 text-xs">
+                Gomare Complex,
+                <br />
+                Old MIDC Road,
+                <br />
+                Shri Nagar, Latur - 413512
+              </p>
+              <p className="text-white font-medium mt-2 text-xs">
+                Ph. +91 8468871305
+              </p>
+              <p className="text-white font-medium mt-2 text-xs">
+                Ph. +7 9788439464
+              </p>
+            </div>
           </div>
         </div>
 
@@ -218,13 +250,22 @@ export default function Footer() {
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <p>© 2026 MBBS Global. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-white transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
+            <Link
+              href="/terms-and-conditions"
+              className="hover:text-white transition-colors"
+            >
               Terms
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
+            <Link
+              href="/sitemap.xml"
+              className="hover:text-white transition-colors"
+            >
               Sitemap
             </Link>
           </div>
