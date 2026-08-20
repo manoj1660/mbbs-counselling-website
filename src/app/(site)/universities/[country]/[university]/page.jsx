@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation"; // 1. Import notFound
 import {
   MapPin,
   CheckCircle2,
@@ -20,47 +21,30 @@ import {
 import connectDB from "@/lib/db";
 import UniversityDetail from "@/models/UniversityDetail";
 
-// 1. SEO Metadata (Next.js 15/16 requires awaiting params)
+// 1. SEO Metadata
 export async function generateMetadata({ params }) {
   const { country, university } = await params;
   await connectDB();
-  
+
   const baseUrl = "https://www.mbbsstudyabroad.com";
   const defaultOgImage = `${baseUrl}/images/hero-video.png`;
 
-  // Generate exact path matching the page structure
   const relativePath = country 
     ? `/universities/${country}/${university}` 
     : `/universities/${university}`;
-  
+
   const canonicalUrl = `${baseUrl}${relativePath}`;
 
   const data = await UniversityDetail.findOne({ slug: university }).lean();
 
+  // FIX 1: Send 'noindex, nofollow' when data is missing
   if (!data) {
-    const fallbackTitle = "University Not Found | MBBS Study Abroad";
-    const fallbackDesc = "Explore top medical universities abroad with NMC & WHO recognition.";
-
     return { 
-      title: fallbackTitle,
-      description: fallbackDesc,
-      alternates: {
-        canonical: canonicalUrl,
-      },
-      openGraph: {
-        title: fallbackTitle,
-        description: fallbackDesc,
-        url: canonicalUrl,
-        siteName: "MBBS Study Abroad",
-        images: [
-          {
-            url: defaultOgImage,
-            width: 1200,
-            height: 630,
-            alt: fallbackTitle,
-          },
-        ],
-        type: "article",
+      title: "University Not Found | MBBS Study Abroad",
+      description: "Explore top medical universities abroad with NMC & WHO recognition.",
+      robots: {
+        index: false,
+        follow: false,
       },
     };
   }
@@ -74,6 +58,10 @@ export async function generateMetadata({ params }) {
     keywords: data.seo?.keywords?.join(", "),
     alternates: {
       canonical: canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
     openGraph: {
       title,
@@ -95,18 +83,14 @@ export async function generateMetadata({ params }) {
 
 // 2. Main Server Component
 export default async function UniversityDetailPage({ params }) {
-  const { university: universitySlug } = await params; // Await params for Next 16+
+  const { university: universitySlug } = await params;
 
-  // Direct Database Connection (Secure & Fast)
   await connectDB();
   const data = await UniversityDetail.findOne({ slug: universitySlug }).lean();
 
+  // FIX 2: Trigger true HTTP 404 response instead of returning plain div with HTTP 200
   if (!data) {
-    return (
-      <div className="p-20 text-center font-bold text-slate-400 uppercase tracking-widest">
-        University Details Not Found
-      </div>
-    );
+    notFound();
   }
 
   const commonFAQs = [
@@ -124,7 +108,6 @@ export default async function UniversityDetailPage({ params }) {
     },
   ];
 
-  // Combine database specific FAQs (if present) with common FAQs
   const allFAQs = [
     ...commonFAQs,
     ...(data.faqs || []).map((faq) => ({
@@ -133,7 +116,6 @@ export default async function UniversityDetailPage({ params }) {
     })),
   ];
 
-  // Structured Data (JSON-LD FAQ Schema)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -149,7 +131,6 @@ export default async function UniversityDetailPage({ params }) {
 
   return (
     <div className="bg-slate-50 min-h-screen font-sans">
-      {/* FAQ JSON-LD Schema Injection */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -157,7 +138,6 @@ export default async function UniversityDetailPage({ params }) {
 
       {/* --- PREMIUM HERO SECTION --- */}
       <section className="relative h-[550px] w-full overflow-hidden bg-slate-950">
-        {/* Background Blurred Image (Optimized Next Image) */}
         {data.image && (
           <div className="absolute inset-0 z-0 scale-110 blur-3xl opacity-30">
             <Image
@@ -171,7 +151,6 @@ export default async function UniversityDetailPage({ params }) {
           </div>
         )}
 
-        {/* Foreground Campus Image (Optimized Next Image) */}
         {data.image && (
           <div className="absolute inset-0 z-10 hidden lg:block">
             <Image
