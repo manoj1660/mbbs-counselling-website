@@ -3,6 +3,16 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
 
+  async redirects() {
+    return [
+      {
+        source: '/index.php',
+        destination: '/',
+        permanent: true, // Yeh 301 Permanent Redirect send karega
+      },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
